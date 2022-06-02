@@ -1,14 +1,11 @@
 // import PokemonTableColumns from "./PokemonTableColumns";
 
-const PokemonTableBody = () => 
-<thead>
+const PokemonTableHead = ({ columns }) => 
+<thead columns={ columns }>
     <tr>
-        <th>Pokemon</th>
-        <th>Numero</th>
-        <th>Nombre</th>
-        <th>Tipo</th>
+        { columns.map ( column => <th key={column}>{ column }</th>) }
         <th></th>
     </tr>
 </thead>;
 
-export default PokemonTableBody;
+export default PokemonTableHead;

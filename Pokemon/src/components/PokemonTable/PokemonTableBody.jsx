@@ -1,11 +1,8 @@
 import PokemonTableRow from "./PokemonTableRow";
 
-const PokemonTableBody = () => 
+const PokemonTableBody = ({ rows }) => 
 <tbody>
-    <PokemonTableRow />
-    <PokemonTableRow />
-    <PokemonTableRow />
-    <PokemonTableRow />
+    { rows.map ( row => <PokemonTableRow row={row}/> )}   
 </tbody>;
 
 export default PokemonTableBody;
