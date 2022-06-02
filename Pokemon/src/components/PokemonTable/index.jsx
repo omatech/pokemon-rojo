@@ -1,9 +1,9 @@
 import PokemonTableBody from "./PokemonTableBody";
-// import PokemonTableHead from "./PokemonTableHead";
+import PokemonTableHead from "./PokemonTableHead";
 
 const PokemonTable = () => 
   <table>
-    {/* <PokemonTableHead /> */}
+    <PokemonTableHead />
     <PokemonTableBody />
   </table>;
 
