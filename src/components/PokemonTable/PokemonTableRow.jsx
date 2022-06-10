@@ -1,6 +1,4 @@
-
-
-const PokemonTableRow = ({ row }) => 
+const PokemonTableRow = ({ row }) =>
 <tr>
     <td><img src={`/img/${row.image} `} alt={ row.name }/></td>
     <td>{ row.number }</td>
