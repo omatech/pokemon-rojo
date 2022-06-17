@@ -1,7 +1,6 @@
 import {useState} from "react";
 
 export const usePokemonTypes =  () => {
-
     const initialTypes = [
         {name: "Tierra", active: false},
         {name: "Bicho", active: false},

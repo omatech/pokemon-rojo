@@ -8,7 +8,6 @@ const StyledPokemonTable = styled.table`
     border: 1px solid black;
 `;
 
-
 const App = () => {
     const [types, setTypes, selectedTypes] = usePokemonTypes();
     const pokemons = usePokemons();

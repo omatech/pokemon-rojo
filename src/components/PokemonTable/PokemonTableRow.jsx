@@ -1,6 +1,5 @@
 import PokemonAttack from "./PokemonAttack";
 
-
 const PokemonTableRow = ({row}) =>
     <tr>
         <td><img src={row.image} alt={row.name} width="45" height="45"/></td>
