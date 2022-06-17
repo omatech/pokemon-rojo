@@ -1,4 +1,5 @@
 const PokemonTypeFilterList = ({types, setTypes}) => {
+    
     const onChangeHandler = ({target}) => {
         setTypes(state => {
             const newState = structuredClone(state);
@@ -8,9 +9,20 @@ const PokemonTypeFilterList = ({types, setTypes}) => {
         })
     };
 
-    return types.map(type => <>
-        <input type="checkbox" name={type.name} id={type.name} onChange={onChangeHandler} checked={type.active}/>
-        <label htmlFor={type.name}>{type.name}</label>
-    </>);
+    return (
+        <div>
+            {
+                types.map(type => 
+                    <>
+                        <div>
+                            <input type="checkbox" name={type.name} id={type.name} onChange={onChangeHandler} checked={type.active}/>
+                            <label htmlFor={type.name}>{type.name}</label>
+                        </div>
+                    </> 
+                )
+            }
+        </div>
+    );
+
 }
 export default PokemonTypeFilterList;

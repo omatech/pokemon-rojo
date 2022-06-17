@@ -1,12 +1,12 @@
 import {useState} from "react";
 
-export const usePokemonTypes =  () => {
+const usePokemonTypes =  () => {
     const initialTypes = [
-        {name: "Tierra", active: false},
+        {name: "Agua", active: false},
         {name: "Bicho", active: false},
         {name: "Fantasma", active: false},
-        {name: "Fuego", active: true},
-        {name: "Agua", active: true},
+        {name: "Fuego", active: false},
+        {name: "Tierra", active: false},
     ];
 
     const [types, setTypes] = useState(initialTypes);
@@ -14,3 +14,5 @@ export const usePokemonTypes =  () => {
 
     return [types, setTypes, selectedTypes];
 };
+
+export default usePokemonTypes;
