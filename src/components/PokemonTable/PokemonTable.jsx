@@ -4,10 +4,10 @@ import json from "../../pokemon.json";
 
 const PokemonTable = () => {
     const columns = [ 'Pokemon', 'Número', 'Nombre', 'Tipo', 'Ataques' ];
-    return <table>
+    return <>
         <PokemonTableHead columns={ columns } />
         <PokemonTableBody pokemonRows={ json } />
-    </table>;
+    </>;
 }
 
 export default PokemonTable;
