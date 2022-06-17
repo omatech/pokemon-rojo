@@ -1,12 +1,12 @@
 import PokemonTableHead from "./PokemonTableHead";
 import PokemonTableBody from "./PokemonTableBody";
-import json from "../../pokemon.json";
 
-const PokemonTable = () => {
+
+const PokemonTable = ({pokemons}) => {
     const columns = [ 'Pokemon', 'Número', 'Nombre', 'Tipo', 'Ataques' ];
     return <>
         <PokemonTableHead columns={ columns } />
-        <PokemonTableBody pokemonRows={ json } />
+        <PokemonTableBody pokemons={ pokemons } />
     </>;
 }
 

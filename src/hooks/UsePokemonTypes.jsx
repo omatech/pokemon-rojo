@@ -1,9 +1,17 @@
 import {useState} from "react";
 
-export const usePokemonTypes =  (initState) => {
-    const [types, setTypes] = useState(initState);
+export const usePokemonTypes =  () => {
 
-    const getPokemonRows = (rows) => rows.filter(row => row.types.includes("Agua"))
+    const initialTypes = [
+        {name: "Tierra", active: false},
+        {name: "Bicho", active: false},
+        {name: "Fantasma", active: false},
+        {name: "Fuego", active: true},
+        {name: "Agua", active: true},
+    ];
 
-    return [types, setTypes, getPokemonRows];
+    const [types, setTypes] = useState(initialTypes);
+    const selectedTypes = types.filter(type => type.active).map(type => type.name);
+
+    return [types, setTypes, selectedTypes];
 };
