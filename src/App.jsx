@@ -5,6 +5,7 @@ import usePokemonTypes from "./hooks/UsePokemonTypes";
 import usePokemons from "./hooks/UsePokemons";
 import PokemonSearcher from "./components/PokemonTable/PokemonSearcher";
 import {useState} from "react";
+import PokemonPagination from "./components/PokemonTable/PokemonPagination";
 
 const StyledContainer = styled.main`
     width: 1440px;
@@ -16,21 +17,23 @@ const StyledContainer = styled.main`
 
 const StyledSection = styled.section`
     display: grid;
-    grid-template-columns: 1fr 4fr;
+    //grid-template-columns: 1fr 4fr;
 `;
 
 const App = () => {
     const [searchValue, setSearchValue] = useState('');
     const [types, setTypes, selectedTypes] = usePokemonTypes();
-    const filteredPokemons = usePokemons({selectedTypes, searchValue});
-    
-    return ( 
+    const [currentPage, setCurrentPage] = useState(0);
+    const [filteredPokemons, pageCount] = usePokemons({selectedTypes, searchValue, currentPage});
+
+    return (
         <>
             <StyledContainer>
                 <StyledSection>
-                    <PokemonSearcher setSearchValue={setSearchValue} />
                     <PokemonTypeFilterList types={types} setTypes={setTypes} />
+                    <PokemonSearcher setSearchValue={setSearchValue} />
                     <PokemonTable pokemons={filteredPokemons} />
+                    <PokemonPagination pageCount={pageCount} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
                 </StyledSection>
             </StyledContainer>
         </>

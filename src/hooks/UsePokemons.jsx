@@ -1,6 +1,6 @@
 import json from "../pokemon.json";
 
-const usePokemons = ({selectedTypes, searchValue}) => {
+const usePokemons = ({selectedTypes, searchValue, currentPage}) => {
 
     let pokemons = json.map(pokemon => ({
         id: pokemon.id,
@@ -17,7 +17,12 @@ const usePokemons = ({selectedTypes, searchValue}) => {
                 type => pokemon.types.includes(type))
         );
     }
-    return pokemons.filter(pokemon => pokemon.name.toLowerCase().includes(searchValue.toLowerCase()));
+
+    pokemons =  pokemons.filter(pokemon => pokemon.name.toLowerCase().includes(searchValue.toLowerCase()));
+
+    const pageItemCount = 10;
+    const pageCount = Math.floor(pokemons.length / pageItemCount);
+    return [pokemons.slice(pageItemCount * currentPage, pageItemCount * currentPage + pageItemCount), pageCount];
 }
 
 export default usePokemons;
