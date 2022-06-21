@@ -1,6 +1,6 @@
 import json from "../pokemon.json";
 
-const usePokemons = ({selectedTypes}) => {
+const usePokemons = ({selectedTypes, searchValue}) => {
 
     let pokemons = json.map(pokemon => ({
         id: pokemon.id,
@@ -11,15 +11,13 @@ const usePokemons = ({selectedTypes}) => {
         types: pokemon.types
     }));
 
-    if(selectedTypes.length) {
+    if (selectedTypes.length) {
         pokemons = pokemons.filter(pokemon =>
             selectedTypes.some(
                 type => pokemon.types.includes(type))
         );
     }
-
-    return pokemons;
-
+    return pokemons.filter(pokemon => pokemon.name.toLowerCase().includes(searchValue.toLowerCase()));
 }
 
 export default usePokemons;

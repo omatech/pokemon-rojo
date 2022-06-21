@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import PokemonTypeFilterList from "./components/PokemonTypeFilter/PokemonTypeFilterList";
 import usePokemonTypes from "./hooks/UsePokemonTypes";
 import usePokemons from "./hooks/UsePokemons";
+import PokemonSearcher from "./components/PokemonTable/PokemonSearcher";
+import {useState} from "react";
 
 const StyledContainer = styled.main`
     width: 1440px;
@@ -18,13 +20,15 @@ const StyledSection = styled.section`
 `;
 
 const App = () => {
+    const [searchValue, setSearchValue] = useState('');
     const [types, setTypes, selectedTypes] = usePokemonTypes();
-    const filteredPokemons = usePokemons({selectedTypes});
+    const filteredPokemons = usePokemons({selectedTypes, searchValue});
     
     return ( 
         <>
             <StyledContainer>
                 <StyledSection>
+                    <PokemonSearcher setSearchValue={setSearchValue} />
                     <PokemonTypeFilterList types={types} setTypes={setTypes} />
                     <PokemonTable pokemons={filteredPokemons} />
                 </StyledSection>

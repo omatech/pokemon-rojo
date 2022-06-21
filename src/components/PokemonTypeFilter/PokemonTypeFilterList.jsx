@@ -1,5 +1,7 @@
+import {Fragment} from "react";
+
 const PokemonTypeFilterList = ({types, setTypes}) => {
-    
+
     const onChangeHandler = ({target}) => {
         setTypes(state => {
             const newState = structuredClone(state);
@@ -12,13 +14,14 @@ const PokemonTypeFilterList = ({types, setTypes}) => {
     return (
         <div>
             {
-                types.map(type => 
-                    <>
+                types.map(type =>
+                    <Fragment key={type.name}>
                         <div>
-                            <input type="checkbox" name={type.name} id={type.name} onChange={onChangeHandler} checked={type.active}/>
+                            <input type="checkbox" name={type.name} id={type.name} onChange={onChangeHandler}
+                                   checked={type.active}/>
                             <label htmlFor={type.name}>{type.name}</label>
                         </div>
-                    </> 
+                    </Fragment>
                 )
             }
         </div>
