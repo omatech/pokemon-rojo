@@ -6,6 +6,7 @@ import usePokemons from "./hooks/UsePokemons";
 import PokemonSearcher from "./components/PokemonTable/PokemonSearcher";
 import {useState} from "react";
 import PokemonPagination from "./components/PokemonTable/PokemonPagination";
+import PokemonPageSize from "./components/PokemonTable/PokemonPageSize";
 
 const StyledContainer = styled.main`
     width: 1440px;
@@ -24,7 +25,8 @@ const App = () => {
     const [searchValue, setSearchValue] = useState('');
     const [types, setTypes, selectedTypes] = usePokemonTypes();
     const [currentPage, setCurrentPage] = useState(0);
-    const [filteredPokemons, pageCount] = usePokemons({selectedTypes, searchValue, currentPage});
+    const [pageSize, setPageSize] = useState(10);
+    const [filteredPokemons, pageCount] = usePokemons({selectedTypes, searchValue, currentPage, pageSize});
 
     return (
         <>
@@ -32,6 +34,7 @@ const App = () => {
                 <StyledSection>
                     <PokemonTypeFilterList types={types} setTypes={setTypes} />
                     <PokemonSearcher setSearchValue={setSearchValue} />
+                    <PokemonPageSize pageSize={pageSize} setPageSize={setPageSize}/>
                     <PokemonTable pokemons={filteredPokemons} />
                     <PokemonPagination pageCount={pageCount} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
                 </StyledSection>
