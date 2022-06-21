@@ -11,17 +11,17 @@ const usePokemons = ({selectedTypes, searchValue, currentPage, pageSize}) => {
         types: pokemon.types
     }));
 
+    const pokemonCount = pokemons.length;
     if (selectedTypes.length) {
         pokemons = pokemons.filter(pokemon =>
             selectedTypes.some(
                 type => pokemon.types.includes(type))
         );
+
     }
-
     pokemons =  pokemons.filter(pokemon => pokemon.name.toLowerCase().includes(searchValue.toLowerCase()));
-
     const pageCount = Math.floor(pokemons.length / pageSize);
-    return [pokemons.slice(pageSize * currentPage, pageSize * currentPage + pageSize), pageCount];
+    return [pokemonCount, pokemons.slice(pageSize * currentPage, pageSize * currentPage + pageSize), pageCount];
 }
 
 export default usePokemons;

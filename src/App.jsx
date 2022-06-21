@@ -26,7 +26,7 @@ const App = () => {
     const [types, setTypes, selectedTypes] = usePokemonTypes();
     const [currentPage, setCurrentPage] = useState(0);
     const [pageSize, setPageSize] = useState(10);
-    const [filteredPokemons, pageCount] = usePokemons({selectedTypes, searchValue, currentPage, pageSize});
+    const [pokemonCount, pokemons, pageCount] = usePokemons({selectedTypes, searchValue, currentPage, pageSize});
 
     return (
         <>
@@ -34,8 +34,9 @@ const App = () => {
                 <StyledSection>
                     <PokemonTypeFilterList types={types} setTypes={setTypes} />
                     <PokemonSearcher setSearchValue={setSearchValue} />
+                    <span>Visualizando {pokemons.length} Pokémons de {pokemonCount}</span>
                     <PokemonPageSize pageSize={pageSize} setPageSize={setPageSize}/>
-                    <PokemonTable pokemons={filteredPokemons} />
+                    <PokemonTable pokemons={pokemons} />
                     <PokemonPagination pageCount={pageCount} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
                 </StyledSection>
             </StyledContainer>
