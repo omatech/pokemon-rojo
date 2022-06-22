@@ -1,6 +1,6 @@
 import json from "../pokemon.json";
 
-const usePokemons = ({selectedTypes, searchValue, currentPage, pageSize}) => {
+const usePokemons = ({selectedTypes, searchValue, currentPage, pageSize, orderValue, direction}) => {
 
     let pokemons = json.map(pokemon => ({
         id: pokemon.id,
@@ -19,9 +19,20 @@ const usePokemons = ({selectedTypes, searchValue, currentPage, pageSize}) => {
         );
 
     }
-    pokemons =  pokemons.filter(pokemon => pokemon.name.toLowerCase().includes(searchValue.toLowerCase()));
+    pokemons = pokemons.filter(pokemon => pokemon.name.toLowerCase().includes(searchValue.toLowerCase()));
     const pageCount = Math.floor(pokemons.length / pageSize);
-    return [pokemonCount, pokemons.slice(pageSize * currentPage, pageSize * currentPage + pageSize), pageCount];
+
+    if(direction === 'asc') {
+        pokemons = pokemons.sort((a, b) => a[orderValue] > b[orderValue])
+    } else {
+        pokemons = pokemons.sort((a, b) => a[orderValue] < b[orderValue])
+    }
+
+
+
+    pokemons = pokemons.slice(pageSize * currentPage, pageSize * currentPage + pageSize)
+
+    return [pokemonCount, pokemons, pageCount];
 }
 
 export default usePokemons;

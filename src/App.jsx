@@ -22,11 +22,13 @@ const StyledSection = styled.section`
 `;
 
 const App = () => {
+    const [direction, setDirection] = useState('asc');
+    const [orderValue, setOrderValue] = useState('number');
     const [searchValue, setSearchValue] = useState('');
     const [types, setTypes, selectedTypes] = usePokemonTypes();
     const [currentPage, setCurrentPage] = useState(0);
     const [pageSize, setPageSize] = useState(10);
-    const [pokemonCount, pokemons, pageCount] = usePokemons({selectedTypes, searchValue, currentPage, pageSize});
+    const [pokemonCount, pokemons, pageCount] = usePokemons({selectedTypes, searchValue, currentPage, pageSize, orderValue, direction});
 
     return (
         <>
@@ -36,7 +38,7 @@ const App = () => {
                     <PokemonSearcher setSearchValue={setSearchValue} />
                     <span>Visualizando {pokemons.length} Pokémons de {pokemonCount}</span>
                     <PokemonPageSize pageSize={pageSize} setPageSize={setPageSize}/>
-                    <PokemonTable pokemons={pokemons} />
+                    <PokemonTable pokemons={pokemons} orderValue={orderValue} setOrderValue={setOrderValue} direction={direction} setDirection={setDirection}/>
                     <PokemonPagination pageCount={pageCount} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
                 </StyledSection>
             </StyledContainer>
