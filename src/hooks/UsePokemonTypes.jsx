@@ -2,11 +2,11 @@ import {useState} from "react";
 
 const usePokemonTypes =  () => {
     const initialTypes = [
-        {name: "Agua", active: false},
-        {name: "Bicho", active: false},
-        {name: "Fantasma", active: false},
-        {name: "Fuego", active: false},
-        {name: "Tierra", active: false},
+        {name: "water", active: false},
+        {name: "bug", active: false},
+        {name: "ghost", active: false},
+        {name: "fire", active: false},
+        {name: "ground", active: false},
     ];
 
     const [types, setTypes] = useState(initialTypes);

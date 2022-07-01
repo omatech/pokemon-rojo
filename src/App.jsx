@@ -28,7 +28,7 @@ const App = () => {
     const [types, setTypes, selectedTypes] = usePokemonTypes();
     const [currentPage, setCurrentPage] = useState(0);
     const [pageSize, setPageSize] = useState(10);
-    const [pokemonCount, pokemons, pageCount] = usePokemons({selectedTypes, searchValue, currentPage, pageSize, orderValue, direction});
+    const [pokemonCount, pokemons, pageCount, isLoading] = usePokemons({selectedTypes, searchValue, currentPage, pageSize, orderValue, direction});
 
     return (
         <>

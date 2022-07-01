@@ -6,7 +6,7 @@ const PokemonTableRow = ({row}) =>
         <td>{row.number}</td>
         <td>{row.name}</td>
         <td>{row.types.join(", ")}</td>
-        <td>{row.moves.slice(0, 3).map(m => <PokemonAttack key={m} attack={m}/>)}</td>
+        {/* <td>{row.moves.slice(0, 3).map(m => <PokemonAttack key={m} attack={m}/>)}</td> */}
         <td><a href="/">Ver detalle</a></td>
     </tr>;
 

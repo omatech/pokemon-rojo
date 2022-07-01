@@ -14,7 +14,7 @@ const PokemonTable = ({pokemons, orderValue, setOrderValue, direction, setDirect
         { 'key': "number", 'name': "Número", 'sortable': true},
         { 'key': "name", 'name': "Nombre", 'sortable': true},
         { 'key': "type", 'name': "Tipo", 'sortable': true},
-        { 'key': "attacks", 'name': "Ataques", 'sortable': false}
+        /* { 'key': "attacks", 'name': "Ataques", 'sortable': false} */
     ];
     return <>
         <StyledTable>
