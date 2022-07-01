@@ -1,4 +1,5 @@
 import PokemonAttack from "./PokemonAttack";
+import PokemonType from "./PokemonType";
 
 import styled from 'styled-components';
 
@@ -48,7 +49,11 @@ const PokemonTableRow = ({row}) =>
         <TableCell>
             <strong>{capitalizeFirst(row.name)}</strong>
         </TableCell>
-        <TableCell>{row.types.join(", ")}</TableCell>
+        <TableCell>
+            { row.types.map(type =>
+                <PokemonType key={type} name={type} />
+            ) }
+        </TableCell>
 
         {/* <td>{row.moves.slice(0, 3).map(m => <PokemonAttack key={m} attack={m}/>)}</td> */}
 
