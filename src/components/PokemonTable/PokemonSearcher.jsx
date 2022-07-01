@@ -1,10 +1,18 @@
+import { useRef } from "react";
+
 const pokemonSearcher = ({setSearchValue}) => {
-    const onChangeHandler = ({target}) => {
-        setSearchValue(target.value);
+    const search = useRef();
+
+    
+    const onClickHandler = () => {
+        setSearchValue(search.current.value);
     }
 
     return (
-        <input type="text" placeholder="Escriu un nom de Pokémon" onChange={onChangeHandler}/>
+        <>
+            <input type="text" placeholder="Escriu un nom de Pokémon" ref={ search } autoFocus />
+            <button type="submit" onClick={onClickHandler}>Cerca</button>
+        </>
     )
 }
 
