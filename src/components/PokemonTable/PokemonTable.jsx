@@ -3,9 +3,11 @@ import PokemonTableBody from "./PokemonTableBody";
 
 import styled from 'styled-components';
 
-const StyledTable = styled.table`
+const StyledTable = styled.div`
     width: 100%;
-    border: 1px solid #000;
+    display: table;
+    background-color: #FFF;
+    border: 1px solid #E7E7E7;
 `;
 
 const PokemonTable = ({pokemons, orderValue, setOrderValue, direction, setDirection}) => {

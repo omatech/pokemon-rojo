@@ -21,7 +21,7 @@ const usePokemons = ({selectedTypes, searchValue, currentPage, pageSize, orderVa
         if(request.ok){
             return { 
                 "id": result.id, 
-                "image": result.sprites.front_default, 
+                "image": `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${result.id}.png`, 
                 "name": result.name, 
                 "number": result.id, 
                 "types": result.types.map(t => t.type.name)

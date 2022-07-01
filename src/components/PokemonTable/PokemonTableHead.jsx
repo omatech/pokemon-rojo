@@ -2,8 +2,26 @@ import {Fragment} from 'react';
 
 import styled from 'styled-components';
 
-const StyledSpan = styled.span`
-       text-decoration: underline;
+const TableHead = styled.div`
+    display: table-header-group;
+    background-color: gray;
+    font-weight: bold;
+    font-size: 25px;
+`;
+
+const TableHeaderRow = styled.div`
+    display: table-header-group;
+    background-color: gray;
+    font-weight: bold;
+    font-size: 14px;  
+`;
+
+const StyledHeaderCell = styled.div`
+    background-color: #000;
+    color: #FFF;
+    display: table-cell;
+    padding: 10px 20px;
+    text-align: justify;
 `;
 
 const PokemonTableHead = ({columns, orderValue, setOrderValue, direction, setDirection}) => {
@@ -18,11 +36,10 @@ const PokemonTableHead = ({columns, orderValue, setOrderValue, direction, setDir
         }
     }
 
-    return <thead>
-    <tr>
+    return <TableHeaderRow>
         {columns.map((column) =>
             <Fragment key={column.name}>
-                <th onClick={() => handleClick(column)}>
+                <StyledHeaderCell onClick={() => handleClick(column)}>
                     <span>{column.name}</span>
                     {
                         column.sortable ?
@@ -30,12 +47,11 @@ const PokemonTableHead = ({columns, orderValue, setOrderValue, direction, setDir
                                 direction === 'asc' ? <span>▼</span> : <span>▲</span>
                                 : "▼" : ""
                     }
-                </th>
+                </StyledHeaderCell>
             </Fragment>
         )}
-        <th></th>
-    </tr>
-    </thead>;
+        <StyledHeaderCell></StyledHeaderCell>
+    </TableHeaderRow>;
 };
 
 export default PokemonTableHead;

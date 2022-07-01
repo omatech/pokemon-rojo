@@ -8,6 +8,8 @@ import {useState} from "react";
 import PokemonPagination from "./components/PokemonTable/PokemonPagination";
 import PokemonPageSize from "./components/PokemonTable/PokemonPageSize";
 
+import './styles.scss';
+
 const StyledContainer = styled.main`
     width: 1440px;
     max-width: 100%;
@@ -18,7 +20,19 @@ const StyledContainer = styled.main`
 
 const StyledSection = styled.section`
     display: grid;
-    //grid-template-columns: 1fr 4fr;
+    gap: 36px;
+    grid-template-columns: 1fr 4fr;
+`;
+
+const TotalPkmn = styled.div`
+    font-size: 13px;
+    text-transform: uppercase;
+`;
+
+const TwoCols = styled.div`
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
 `;
 
 const App = () => {
@@ -33,14 +47,23 @@ const App = () => {
     return (
         <>
             <StyledContainer>
+
                 <StyledSection>
+
                     <PokemonTypeFilterList types={types} setTypes={setTypes} />
-                    <PokemonSearcher setSearchValue={setSearchValue} />
-                    <span>Visualizando {pokemons.length} Pokémons de {pokemonCount}</span>
-                    <PokemonPageSize pageSize={pageSize} setPageSize={setPageSize}/>
-                    <PokemonTable pokemons={pokemons} orderValue={orderValue} setOrderValue={setOrderValue} direction={direction} setDirection={setDirection}/>
-                    <PokemonPagination pageCount={pageCount} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
+
+                    <section>
+                        <PokemonSearcher setSearchValue={setSearchValue} />
+                        <TwoCols>
+                            <TotalPkmn>{pokemonCount} <strong>Pokémons</strong></TotalPkmn>
+                            <PokemonPageSize pageSize={pageSize} setPageSize={setPageSize}/>
+                        </TwoCols>
+                        <PokemonTable pokemons={pokemons} orderValue={orderValue} setOrderValue={setOrderValue} direction={direction} setDirection={setDirection}/>
+                        <PokemonPagination pageCount={pageCount} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
+                    </section>
+
                 </StyledSection>
+
             </StyledContainer>
         </>
     );

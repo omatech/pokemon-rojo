@@ -1,8 +1,51 @@
+import styled from 'styled-components';
+
+const StyledSpan = styled.span`
+    font-size: 13px;
+    text-transform: uppercase;
+`;
+
+const SizeSelect = styled.select`
+    border: none;
+    background-color: transparent;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: underline;
+    text-transform: uppercase;
+    
+    display: inline-block;
+    line-height: 1.5em;
+    padding: 0.5em 2.5em 0.5em 1em;
+
+    margin: 0;      
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image:
+    linear-gradient(45deg, transparent 50%, black 50%),
+    linear-gradient(135deg, black 50%, transparent 50%);
+    background-position:
+        calc(100% - 20px) calc(1em + 2px),
+        calc(100% - 15px) calc(1em + 2px),
+        calc(100% - 2.5em) 0.5em;
+    background-size:
+        5px 5px,
+        5px 5px,
+        1px 1.5em;
+    background-repeat: no-repeat;
+`;
+
 const PokemonPageSize = ({pageSize, setPageSize}) =>
-    <select onChange={({target}) => setPageSize(target.value)} value={pageSize}>
-        <option value="10">10</option>
-        <option value="20">20</option>
-        <option value="50">50</option>
-    </select>
+    <div>
+        <StyledSpan>Ver: </StyledSpan>
+        <SizeSelect onChange={({target}) => setPageSize(target.value)} value={pageSize}>
+            <option value="10">10 elementos</option>
+            <option value="20">20 elementos</option>
+            <option value="50">50 elementos</option>
+        </SizeSelect>
+    </div>
 
 export default PokemonPageSize;
