@@ -17,6 +17,7 @@ const StyledLabel = styled.label`
     cursor: pointer;
     font-size: 14px;
     text-align: left;
+    text-transform: capitalize;
 `;
 
 const StyledInput = styled.input`
