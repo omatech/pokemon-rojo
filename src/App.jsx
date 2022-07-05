@@ -7,6 +7,7 @@ import PokemonSearcher from "./components/PokemonTable/PokemonSearcher";
 import {useState} from "react";
 import PokemonPagination from "./components/PokemonTable/PokemonPagination";
 import PokemonPageSize from "./components/PokemonTable/PokemonPageSize";
+import TitleProvider from "./context/TitleProvider";
 
 import './styles.scss';
 
@@ -45,7 +46,7 @@ const App = () => {
     const [pokemonCount, pokemons, pageCount, isLoading] = usePokemons({selectedTypes, searchValue, currentPage, pageSize, orderValue, direction});
 
     return (
-        <>
+        <TitleProvider>
             <StyledContainer>
 
                 <StyledSection>
@@ -65,7 +66,7 @@ const App = () => {
                 </StyledSection>
 
             </StyledContainer>
-        </>
+        </TitleProvider>
     );
 }
 

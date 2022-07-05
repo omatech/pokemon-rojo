@@ -1,5 +1,6 @@
 import {Fragment} from "react";
-
+import { useContext } from "react";
+import { StaticTextsContext } from "../../context/TitleProvider";
 import styled from 'styled-components';
 
 const FiltersTitle = styled.h2`
@@ -60,6 +61,8 @@ const StyledBox = styled.div`
 
 const PokemonTypeFilterList = ({types, setTypes}) => {
 
+    const { staticTexts } = useContext(StaticTextsContext);
+
     const onChangeHandler = ({target}) => {
         setTypes(state => {
             const newState = structuredClone(state);
@@ -71,7 +74,7 @@ const PokemonTypeFilterList = ({types, setTypes}) => {
 
     return (
         <div>
-            <FiltersTitle>Tipos Pokémon</FiltersTitle>
+            <FiltersTitle>{staticTexts.filterTitle}</FiltersTitle>
             {
                 types.map(type =>
                     <Fragment key={type.name}>

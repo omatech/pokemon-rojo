@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { StaticTextsContext } from "../../context/TitleProvider";
+import { useContext } from 'react';
 
 const StyledSpan = styled.span`
     font-size: 13px;
@@ -38,14 +40,19 @@ const SizeSelect = styled.select`
     background-repeat: no-repeat;
 `;
 
-const PokemonPageSize = ({pageSize, setPageSize}) =>
-    <div>
-        <StyledSpan>Ver: </StyledSpan>
-        <SizeSelect onChange={({target}) => setPageSize(target.value)} value={pageSize}>
-            <option value="10">10 elementos</option>
-            <option value="20">20 elementos</option>
-            <option value="50">50 elementos</option>
-        </SizeSelect>
-    </div>
+const PokemonPageSize = ({pageSize, setPageSize}) => {
+    const { staticTexts } = useContext(StaticTextsContext);
+
+    return (
+        <div>
+            <StyledSpan>Ver: </StyledSpan>
+            <SizeSelect onChange={({target}) => setPageSize(target.value)} value={pageSize}>
+                <option value="10">10 elementos</option>
+                <option value="20">20 elementos</option>
+                <option value="50">50 elementos</option>
+            </SizeSelect>
+        </div>
+    );
+}
 
 export default PokemonPageSize;

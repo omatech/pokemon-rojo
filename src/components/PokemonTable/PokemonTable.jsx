@@ -1,7 +1,9 @@
 import PokemonTableHead from "./PokemonTableHead";
 import PokemonTableBody from "./PokemonTableBody";
+import { StaticTextsContext } from "../../context/TitleProvider";
 
 import styled from 'styled-components';
+import {useContext} from "react";
 
 const StyledTable = styled.div`
     width: 100%;
@@ -11,13 +13,9 @@ const StyledTable = styled.div`
 `;
 
 const PokemonTable = ({pokemons, orderValue, setOrderValue, direction, setDirection}) => {
-    const columns = [
-        { 'key': "image", 'name': "Pokemon", 'sortable': false },
-        { 'key': "number", 'name': "Número", 'sortable': true},
-        { 'key': "name", 'name': "Nombre", 'sortable': true},
-        { 'key': "type", 'name': "Tipo", 'sortable': true},
-        /* { 'key': "attacks", 'name': "Ataques", 'sortable': false} */
-    ];
+    const { staticTexts } = useContext(StaticTextsContext);
+    const columns = staticTexts.columnsHeader;
+
     return <>
         <StyledTable>
             <PokemonTableHead columns={ columns } orderValue={orderValue} setOrderValue={setOrderValue} direction={direction} setDirection={setDirection}/>
