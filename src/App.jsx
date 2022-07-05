@@ -60,7 +60,7 @@ const App = () => {
                             <PokemonPageSize pageSize={pageSize} setPageSize={setPageSize}/>
                         </TwoCols>
                         <PokemonTable pokemons={pokemons} orderValue={orderValue} setOrderValue={setOrderValue} direction={direction} setDirection={setDirection}/>
-                        <PokemonPagination pageCount={pageCount} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
+                        <PokemonPagination pageCount={pageCount} totalCount={pokemonCount} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
                     </section>
 
                 </StyledSection>

@@ -8,7 +8,10 @@ const usePokemonTypes =  () => {
     (async () => {
         const request = await fetch(url);
         const result = await request.json();
-        result.results.map(function(type) {
+        const results = result.results.sort((a, b) =>
+            a.name > b.name ? 1 : -1,
+        );
+        results.map(function(type) {
             let initialType = {
                 name: type.name,
                 active: false
