@@ -1,7 +1,14 @@
 import {Fragment} from "react";
 import { useContext } from "react";
 import { StaticTextsContext } from "../../context/TitleProvider";
+import {colors, text} from '../../utils/variables';
+
 import styled from 'styled-components';
+
+const StyledAside = styled.aside`
+    background-color: #FFFFFF;
+    padding: 0 20px;
+`;
 
 const FiltersTitle = styled.h2`
     font-size: 13px;
@@ -10,52 +17,50 @@ const FiltersTitle = styled.h2`
     margin-bottom: 20px;
 `;
 
-const StyledLabel = styled.label`
+const StyledCheckboxGroup = styled.label`
     display: block;
-    position: relative;
-    padding-left: 32px;
-    margin-bottom: 15px;
-    cursor: pointer;
+    margin-bottom: 10px;
     font-size: 14px;
-    text-align: left;
+    color: ${ colors.textCheckbox };
     text-transform: capitalize;
-`;
-
-const StyledInput = styled.input`
-    position: absolute;
-    z-index: -1;
-    opacity: 0;
-
-    &:checked {
-        ~ div {
-            background: #000;
-            &:after {
-                display: block;
-            }
+    input {
+        display: none;
+    }
+    span {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        position: relative;
+        position: relative;
+        &:before {
+            content: '';
+            cursor: pointer;
+            display: block;
+            width: 20px;
+            height: 20px;
+            background-color: ${ colors.bgCheckBox };
+            margin-right: 16px;
+            flex: 0 0 auto;
+            border: 1px solid ${ colors.borderInput };
+        }
+        &:after {
+            content: '';
+            cursor: pointer;
+            width: 4px;
+            height: 9px;
+            border: 2px solid ${ colors.checkCheckbox };
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+            display: block;
+            position: absolute;
+            left: 7px;
+            top: 4px;
+            opacity: 0;
         }
     }
-`;
-
-const StyledBox = styled.div`
-    position: absolute;
-    top: 2px;
-    left: 0;
-    height: 20px;
-    width: 20px;
-    background: #e6e6e6;
-
-    &:after {
-        content: '';
-        position: absolute;
-        display: none;
-        left: 8px;
-        top: 4px;
-        width: 3px;
-        height: 8px;
-        border: solid #FFC700;
-        border-width: 0 2px 2px 0;
-        -webkit-transform: rotate(45deg);
-        transform: rotate(45deg);
+    input:checked + span:after {
+        opacity: 1;
     }
 `;
 
@@ -73,20 +78,17 @@ const PokemonTypeFilterList = ({types, setTypes}) => {
     };
 
     return (
-        <div>
+        <StyledAside>
             <FiltersTitle>{staticTexts.filterTitle}</FiltersTitle>
             {
                 types.map(type =>
-                    <Fragment key={type.name}>
-                        <StyledLabel>
-                            {type.name}
-                            <StyledInput type="checkbox" name={type.name} id={type.name} onChange={onChangeHandler} checked={type.active} />
-                            <StyledBox></StyledBox>
-                        </StyledLabel>
-                    </Fragment>
+                    <StyledCheckboxGroup>
+                        <input type="checkbox" name={type.name} id={type.name} onChange={onChangeHandler} checked={type.active} />
+                        <span>{type.name}</span>
+                    </StyledCheckboxGroup>
                 )
             }
-        </div>
+        </StyledAside>
     );
 
 }
