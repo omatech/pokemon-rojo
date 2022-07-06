@@ -33,17 +33,28 @@ const SearchInput = styled.input`
     width: 320px;
 `;
 
+const searchPokemon = ({ target }) => {
+    dispatch({
+        type: 'SET_SEARCH_VALUE',
+        payload: {
+            searchValue: target,
+        }
+    });
+}
+
 const SearchBar = ({setSearchValue}) => {
 
   const search = useRef();
 
   const onClickHandler = () => {
-      setSearchValue(search.current.value);
+      searchPokemon(search.current.value);
+      //setSearchValue(search.current.value);
   }
 
   const onKeyHandler = (event) => {
       if(event.key === 'Enter') {
-          setSearchValue(search.current.value);
+          searchPokemon(search.current.value);
+          //setSearchValue(search.current.value);
       }
   }
 

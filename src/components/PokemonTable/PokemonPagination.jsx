@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { useContext } from "react";
+import { StateContext } from "../../context/StateProvider";
 
 const StyledLink = styled.a`
     color: #6F6F6F;
@@ -30,18 +32,27 @@ const StyledPagination = styled.div`
     li { display: inline; }
 `;
 
-const PokemonPagination = ({currentPage, pageCount, setCurrentPage}) => {
-    
+const PokemonPagination = () => {
+
+    const changePageNumber = ( pageNumber ) => {
+        dispatch({
+            type: "SET_PAGE_NUMBER",
+            payload: { pageNumber : pageNumber }
+        });
+    }
+
+    const { currentPage, pageCount  } = useContext(StateContext);
+
     return (
         <StyledPagination>
             <StyledUl>
                 <li>
-                    <StyledLink onClick={() => setCurrentPage(0)}>«</StyledLink>
+                    <StyledLink onClick={() => changePageNumber(0)}>«</StyledLink>
                 </li>
                 {
                     currentPage > 0 ? 
                     <li>
-                        <StyledLink disabled={currentPage === 0} onClick={() => setCurrentPage(currentPage - 1)}>‹</StyledLink>
+                        <StyledLink disabled={currentPage === 0} onClick={() => changePageNumber(currentPage - 1)}>‹</StyledLink>
                     </li> : ''
                 }
 
@@ -52,7 +63,7 @@ const PokemonPagination = ({currentPage, pageCount, setCurrentPage}) => {
                     i > currentPage + 2 ? '' :
                     i < currentPage - 2 ? '' :
                     <li key={i}>
-                        <StyledLink className={`${i === currentPage ? "active" : ""}`} onClick={() => setCurrentPage(i)} disabled={i === currentPage}>{i + 1}</StyledLink>
+                        <StyledLink className={`${i === currentPage ? "active" : ""}`} onClick={() => changePageNumber(i)} disabled={i === currentPage}>{i + 1}</StyledLink>
                     </li>
                 )}
                 {
@@ -61,12 +72,12 @@ const PokemonPagination = ({currentPage, pageCount, setCurrentPage}) => {
                 {
                     currentPage < pageCount ?
                     <li>
-                        <StyledLink disabled={currentPage >= pageCount} onClick={() => setCurrentPage(currentPage + 1)}>›</StyledLink>
+                        <StyledLink disabled={currentPage >= pageCount} onClick={() => changePageNumber(currentPage + 1)}>›</StyledLink>
                     </li> : ''
                 }
 
                 <li>
-                    <StyledLink onClick={() => setCurrentPage(pageCount)}>»</StyledLink>
+                    <StyledLink onClick={() => changePageNumber(pageCount)}>»</StyledLink>
                 </li>
             </StyledUl>
         </StyledPagination>

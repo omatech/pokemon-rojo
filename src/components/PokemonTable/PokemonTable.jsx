@@ -12,13 +12,13 @@ const StyledTable = styled.div`
     border: 1px solid #E7E7E7;
 `;
 
-const PokemonTable = ({pokemons, orderValue, setOrderValue, direction, setDirection}) => {
+const PokemonTable = ({ pokemons }) => {
     const { staticTexts } = useContext(StaticTextsContext);
     const columns = staticTexts.columnsHeader;
 
     return <>
         <StyledTable>
-            <PokemonTableHead columns={ columns } orderValue={orderValue} setOrderValue={setOrderValue} direction={direction} setDirection={setDirection}/>
+            <PokemonTableHead columns={ columns } />
             <PokemonTableBody pokemons={ pokemons } />
         </StyledTable>
     </>;

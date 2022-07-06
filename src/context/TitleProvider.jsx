@@ -3,6 +3,8 @@ import { createContext, useReducer } from 'react';
 export const StaticTextsContext = createContext();
 
 const TitleProvider = ({children}) => {
+
+    //const [state, dispatch] = useReducer(reducer, initialState, init);
     const staticTexts = {
         columnsHeader: [
             { 'key': "image", 'name': "Pokemon", 'sortable': false },

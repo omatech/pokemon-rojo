@@ -1,13 +1,6 @@
-import {Fragment} from 'react';
-
+import { Fragment, useContext } from 'react';
+import { StateContext } from "../../context/StateProvider";
 import styled from 'styled-components';
-
-const TableHead = styled.div`
-    display: table-header-group;
-    background-color: gray;
-    font-weight: bold;
-    font-size: 25px;
-`;
 
 const TableHeaderRow = styled.div`
     display: table-header-group;
@@ -24,15 +17,32 @@ const StyledHeaderCell = styled.div`
     text-align: justify;
 `;
 
-const PokemonTableHead = ({columns, orderValue, setOrderValue, direction, setDirection}) => {
+const PokemonTableHead = ({ columns }) => {
+
+    const changeDirection = ( direction ) => {
+        dispatch({
+            type: "SET_DIRECTION",
+            payload: { direction : direction }
+        });
+    }
+
+    const changeOrderValue = ( orderValue ) => {
+        dispatch({
+            type: "SET_ORDER_VALUE",
+            payload: { orderValue : orderValue }
+        });
+    }
+
+    const { orderValue, direction  } = useContext(StateContext);
+
     const handleClick = (column) => {
         if (column.sortable) {
             if (column.key === orderValue) {
-                direction === 'asc' ? setDirection('desc') : setDirection('asc');
+                direction === 'asc' ? changeDirection('desc') : changeDirection('asc');
             } else {
-                setDirection('asc');
+                changeOrderValue('asc');
             }
-            setOrderValue(column.key);
+            changeOrderValue(column.key);
         }
     }
 

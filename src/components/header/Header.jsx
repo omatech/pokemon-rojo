@@ -11,6 +11,6 @@ const StyledHeader = styled.header`
   grid-template-rows: ${ heights.hTopBar } 100px;
 `;
 
-const Header = ({setSearchValue}) => <StyledHeader><TopBar/><Logo/><SearchBar setSearchValue={setSearchValue} /></StyledHeader>;
+const Header = () => <StyledHeader><TopBar/><Logo/><SearchBar /></StyledHeader>;
 
 export default Header;

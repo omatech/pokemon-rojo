@@ -40,13 +40,22 @@ const SizeSelect = styled.select`
     background-repeat: no-repeat;
 `;
 
-const PokemonPageSize = ({pageSize, setPageSize}) => {
+const PokemonPageSize = ({pageSize, dispatch}) => {
     const { staticTexts } = useContext(StaticTextsContext);
     const paginationText = staticTexts.paginationConfig.text;
+    const onChangeHandler = ({ target }) => {
+        dispatch({
+            type: "SET_PAGE_SIZE",
+            payload: {
+                pageSize : target.value
+            }
+        });
+    }
+
     return (
         <div>
             <StyledSpan>Ver: </StyledSpan>
-            <SizeSelect onChange={({target}) => setPageSize(target.value)} value={pageSize}>
+            <SizeSelect onChange={onChangeHandler} value={pageSize}>
                 { staticTexts.paginationConfig.sizes.map(size => <option key={size} value={size}>{ paginationText.replace('::', size )}</option>) }
             </SizeSelect>
         </div>

@@ -3,16 +3,16 @@ import StyledGlobal from './utils/StyledGlobal';
 import PokemonTable from "./components/PokemonTable/PokemonTable";
 import styled from 'styled-components';
 import PokemonTypeFilterList from "./components/PokemonTypeFilter/PokemonTypeFilterList";
-import usePokemonTypes from "./hooks/UsePokemonTypes";
-import usePokemons from "./hooks/UsePokemons";
-
-import {useState} from "react";
 import PokemonPagination from "./components/PokemonTable/PokemonPagination";
 import PokemonPageSize from "./components/PokemonTable/PokemonPageSize";
 import TitleProvider from "./context/TitleProvider";
 
 import './styles.scss';
 import {colors, heights, widths} from './utils/variables';
+import StateProvider from "./context/StateProvider";
+import usePokemonTypes from "./hooks/UsePokemonTypes";
+import usePokemons from "./hooks/UsePokemons";
+
 
 const StyledContainer = styled.main`
     width: 1440px;
@@ -48,47 +48,31 @@ const StyledApp = styled.div`
 `;
 
 const App = () => {
-    const [direction, setDirection] = useState('asc');
-    const [orderValue, setOrderValue] = useState('number');
-    const [searchValue, setSearchValue] = useState('');
     const [types, setTypes, selectedTypes] = usePokemonTypes();
-    const [currentPage, setCurrentPage] = useState(0);
-    const [pageSize, setPageSize] = useState(10);
     const [pokemonCount, pokemons, pageCount, isLoading] = usePokemons({selectedTypes, searchValue, currentPage, pageSize, orderValue, direction});
 
     return (
-
-        <StyledApp>
-
-            <TitleProvider>
-
-                <Header setSearchValue={setSearchValue} />
-
-                <PokemonTypeFilterList types={types} setTypes={setTypes} />
-
-                <StyledContainer>
-
-                    <StyledSection>
-
-                        <section>
-                            <TwoCols>
-                                <TotalPkmn>{pokemonCount} <strong>Pokémons</strong></TotalPkmn>
-                                <PokemonPageSize pageSize={pageSize} setPageSize={setPageSize}/>
-                            </TwoCols>
-                            <PokemonTable pokemons={pokemons} orderValue={orderValue} setOrderValue={setOrderValue} direction={direction} setDirection={setDirection}/>
-                            <PokemonPagination pageCount={pageCount} totalCount={pokemonCount} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
-                        </section>
-
-                    </StyledSection>
-
-                </StyledContainer>
-
-                <StyledGlobal />
-
-            </TitleProvider>
-
-        </StyledApp>
-
+        <StateProvider>
+            <StyledApp>
+                <TitleProvider>
+                    <Header/>
+                    <PokemonTypeFilterList types={types} setTypes={setTypes}/>
+                    <StyledContainer>
+                        <StyledSection>
+                            <section>
+                                <TwoCols>
+                                    <TotalPkmn>{pokemonCount} <strong>Pokémons</strong></TotalPkmn>
+                                    <PokemonPageSize/>
+                                </TwoCols>
+                                <PokemonTable pokemons={pokemons} />
+                                <PokemonPagination pageCount={pageCount} totalCount={pokemonCount} />
+                            </section>
+                        </StyledSection>
+                    </StyledContainer>
+                    <StyledGlobal/>
+                </TitleProvider>
+            </StyledApp>
+        </StateProvider>
     );
 }
 
