@@ -1,5 +1,5 @@
 import TopBar from './topBar/topBar';
-import Logo from './logo/Logo';
+import Logo from './logo/logo';
 import SearchBar from './searchBar/SearchBar';
 import styled from 'styled-components';
 import {heights, widths} from '../../utils/variables';

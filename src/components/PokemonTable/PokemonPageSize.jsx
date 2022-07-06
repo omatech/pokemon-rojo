@@ -42,14 +42,12 @@ const SizeSelect = styled.select`
 
 const PokemonPageSize = ({pageSize, setPageSize}) => {
     const { staticTexts } = useContext(StaticTextsContext);
-
+    const paginationText = staticTexts.paginationConfig.text;
     return (
         <div>
             <StyledSpan>Ver: </StyledSpan>
             <SizeSelect onChange={({target}) => setPageSize(target.value)} value={pageSize}>
-                <option value="10">10 elementos</option>
-                <option value="20">20 elementos</option>
-                <option value="50">50 elementos</option>
+                { staticTexts.paginationConfig.sizes.map(size => <option key={size} value={size}>{ paginationText.replace('::', size )}</option>) }
             </SizeSelect>
         </div>
     );
