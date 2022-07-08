@@ -37,12 +37,6 @@ const usePokemons = ({selectedTypes }) => {
             let pokemons = [];
             if(request.ok){
                 pokemons = await getPokemonDetails(result.results, controller);
-                if (state.direction === 'asc') {
-                    pokemons = pokemons.sort((a, b) => a[state.orderValue] > b[state.orderValue])
-                } else {
-                    pokemons = pokemons.sort((a, b) => a[state.orderValue] < b[state.orderValue])
-                }       
-
                 dispatch({
                     type: "SET_POKEMONS",
                     payload: { 
