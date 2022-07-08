@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import Header from './components/header/Header';
 import StyledGlobal from './utils/StyledGlobal';
 import PokemonTable from "./components/PokemonTable/PokemonTable";
@@ -6,12 +7,11 @@ import PokemonTypeFilterList from "./components/PokemonTypeFilter/PokemonTypeFil
 import PokemonPagination from "./components/PokemonTable/PokemonPagination";
 import PokemonPageSize from "./components/PokemonTable/PokemonPageSize";
 import TitleProvider from "./context/TitleProvider";
-
 import './styles.scss';
 import {colors, heights, widths} from './utils/variables';
-import StateProvider from "./context/StateProvider";
 import usePokemonTypes from "./hooks/UsePokemonTypes";
-import usePokemons from "./hooks/UsePokemons";
+import StateProvider, { StateContext } from  "./context/StateProvider";
+import usePokemons from './hooks/UsePokemons';
 
 
 const StyledContainer = styled.main`
@@ -47,33 +47,39 @@ const StyledApp = styled.div`
   height: 100vh;
 `;
 
+const Contexted = Component => props => 
+  <StateProvider>
+    <Component {...props} />
+  </StateProvider>;
+
 const App = () => {
     const [types, setTypes, selectedTypes] = usePokemonTypes();
-    const [pokemonCount, pokemons, pageCount, isLoading] = usePokemons({selectedTypes, searchValue, currentPage, pageSize, orderValue, direction});
+    const { state  } = useContext(StateContext);
+    const [ isLoading ] = usePokemons(selectedTypes);
 
     return (
-        <StateProvider>
-            <StyledApp>
-                <TitleProvider>
-                    <Header/>
-                    <PokemonTypeFilterList types={types} setTypes={setTypes}/>
-                    <StyledContainer>
-                        <StyledSection>
-                            <section>
-                                <TwoCols>
-                                    <TotalPkmn>{pokemonCount} <strong>Pokémons</strong></TotalPkmn>
-                                    <PokemonPageSize/>
-                                </TwoCols>
-                                <PokemonTable pokemons={pokemons} />
-                                <PokemonPagination pageCount={pageCount} totalCount={pokemonCount} />
-                            </section>
-                        </StyledSection>
-                    </StyledContainer>
-                    <StyledGlobal/>
-                </TitleProvider>
-            </StyledApp>
-        </StateProvider>
+        <StyledApp>
+            <TitleProvider>
+                <Header/>
+                <PokemonTypeFilterList types={types} setTypes={setTypes}/>
+                <StyledContainer>
+                    <StyledSection>
+                    {!isLoading ? 
+                        <section>
+                            <TwoCols>
+                                <TotalPkmn>{state.pokemonCount} <strong>Pokémons</strong></TotalPkmn>
+                                <PokemonPageSize/>
+                            </TwoCols>
+                            <PokemonTable/>
+                            <PokemonPagination />
+                        </section>
+                        : <div>Loading...</div> }
+                    </StyledSection>
+                </StyledContainer>
+                <StyledGlobal/>
+            </TitleProvider>
+        </StyledApp>
     );
 }
 
-export default App
+export default Contexted(App);

@@ -1,11 +1,10 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState, useContext } from "react";
+import { StateContext } from "../context/StateProvider";
 
-const usePokemons = ({selectedTypes, searchValue, currentPage, pageSize, orderValue, direction}) => {
-    const url = `https://pokeapi.co/api/v2/pokemon?offset=${currentPage * pageSize}&limit=${pageSize}`;
-    const [fetchedPokemons, setFetchedPokemons] = useState([]);
-    const [pokemonCount, setPokemonCount] = useState(0);
+const usePokemons = ({selectedTypes }) => {
+    const { state, dispatch  } = useContext(StateContext);
+    const url = `https://pokeapi.co/api/v2/pokemon?offset=${state.currentPage * state.pageSize}&limit=${state.pageSize}`;
     const [isLoading, setIsLoading] = useState(true);
-    const [pageCount, setPageCount] = useState(0);
 
 
     const getPokemonDetails = async(pokemons, controller) => {
@@ -34,17 +33,25 @@ const usePokemons = ({selectedTypes, searchValue, currentPage, pageSize, orderVa
         (async () => {
             const request = await fetch(url, { signal: controller.signal });
             const result = await request.json();
-            setPokemonCount(result.count);
+
             let pokemons = [];
             if(request.ok){
                 pokemons = await getPokemonDetails(result.results, controller);
-                if (direction === 'asc') {
-                    pokemons = pokemons.sort((a, b) => a[orderValue] > b[orderValue])
+                if (state.direction === 'asc') {
+                    pokemons = pokemons.sort((a, b) => a[state.orderValue] > b[state.orderValue])
                 } else {
-                    pokemons = pokemons.sort((a, b) => a[orderValue] < b[orderValue])
-                }                
-                setFetchedPokemons(pokemons);
-                setPageCount(Math.floor(result.count / pageSize));
+                    pokemons = pokemons.sort((a, b) => a[state.orderValue] < b[state.orderValue])
+                }       
+
+                dispatch({
+                    type: "SET_POKEMONS",
+                    payload: { 
+                        pokemons : pokemons,
+                        pokemonCount: result.count,
+                        pageCount: Math.floor(result.count / state.pageSize)
+                    }
+                }); 
+                
                 setIsLoading(false);
             }
         })();
@@ -54,17 +61,17 @@ const usePokemons = ({selectedTypes, searchValue, currentPage, pageSize, orderVa
     }, [url]);
 
    
-    let pokemons = fetchedPokemons;
-    if (selectedTypes.length) {
+    let pokemons = state.pokemons;
+    if (selectedTypes && selectedTypes.length) {
         pokemons = pokemons.filter(pokemon =>
             selectedTypes.some(
                 type => pokemon.types.includes(type))
         );
     }
 
-    pokemons = pokemons.filter(pokemon => pokemon.name.toLowerCase().includes(searchValue.toLowerCase()));
+    pokemons = pokemons.filter(pokemon => pokemon.name.toLowerCase().includes(state.searchValue.toLowerCase()));
 
-    return [pokemonCount, pokemons, pageCount, isLoading];
+    return [isLoading];
 }
 
 export default usePokemons;

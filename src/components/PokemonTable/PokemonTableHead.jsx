@@ -1,5 +1,6 @@
 import { Fragment, useContext } from 'react';
 import { StateContext } from "../../context/StateProvider";
+import { StaticTextsContext } from "../../context/TitleProvider";
 import styled from 'styled-components';
 
 const TableHeaderRow = styled.div`
@@ -17,7 +18,11 @@ const StyledHeaderCell = styled.div`
     text-align: justify;
 `;
 
-const PokemonTableHead = ({ columns }) => {
+const PokemonTableHead = () => {
+
+    const { staticTexts } = useContext(StaticTextsContext);
+    const columns = staticTexts.columnsHeader;
+    const { state, dispatch } = useContext(StateContext);
 
     const changeDirection = ( direction ) => {
         dispatch({
@@ -33,12 +38,11 @@ const PokemonTableHead = ({ columns }) => {
         });
     }
 
-    const { orderValue, direction  } = useContext(StateContext);
 
     const handleClick = (column) => {
         if (column.sortable) {
-            if (column.key === orderValue) {
-                direction === 'asc' ? changeDirection('desc') : changeDirection('asc');
+            if (column.key === state.orderValue) {
+                state.direction === 'asc' ? changeDirection('desc') : changeDirection('asc');
             } else {
                 changeOrderValue('asc');
             }
@@ -53,8 +57,8 @@ const PokemonTableHead = ({ columns }) => {
                     <span>{column.name}</span>
                     {
                         column.sortable ?
-                            column.key === orderValue ?
-                                direction === 'asc' ? <span>▼</span> : <span>▲</span>
+                            column.key === state.orderValue ?
+                                state.direction === 'asc' ? <span>▼</span> : <span>▲</span>
                                 : "▼" : ""
                     }
                 </StyledHeaderCell>

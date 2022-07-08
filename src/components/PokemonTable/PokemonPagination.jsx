@@ -34,14 +34,13 @@ const StyledPagination = styled.div`
 
 const PokemonPagination = () => {
 
+    const { state, dispatch } = useContext(StateContext);
     const changePageNumber = ( pageNumber ) => {
         dispatch({
             type: "SET_PAGE_NUMBER",
             payload: { pageNumber : pageNumber }
         });
     }
-
-    const { currentPage, pageCount  } = useContext(StateContext);
 
     return (
         <StyledPagination>
@@ -50,34 +49,34 @@ const PokemonPagination = () => {
                     <StyledLink onClick={() => changePageNumber(0)}>«</StyledLink>
                 </li>
                 {
-                    currentPage > 0 ? 
+                    state.currentPage > 0 ? 
                     <li>
-                        <StyledLink disabled={currentPage === 0} onClick={() => changePageNumber(currentPage - 1)}>‹</StyledLink>
+                        <StyledLink disabled={state.currentPage === 0} onClick={() => changePageNumber(state.currentPage - 1)}>‹</StyledLink>
                     </li> : ''
                 }
 
                 {
-                    currentPage > 2 ? <StyledLink>...</StyledLink> : ''
+                    state.currentPage > 2 ? <StyledLink>...</StyledLink> : ''
                 }
-                {[...Array(pageCount + 1).keys()].map((i) =>
-                    i > currentPage + 2 ? '' :
-                    i < currentPage - 2 ? '' :
+                {[...Array(state.pageCount + 1).keys()].map((i) =>
+                    i > state.currentPage + 2 ? '' :
+                    i < state.currentPage - 2 ? '' :
                     <li key={i}>
-                        <StyledLink className={`${i === currentPage ? "active" : ""}`} onClick={() => changePageNumber(i)} disabled={i === currentPage}>{i + 1}</StyledLink>
+                        <StyledLink className={`${i === state.currentPage ? "active" : ""}`} onClick={() => changePageNumber(i)} disabled={i === state.currentPage}>{i + 1}</StyledLink>
                     </li>
                 )}
                 {
-                    currentPage > 2 && currentPage < pageCount - 2 ? <StyledLink>...</StyledLink> : ''
+                    state.currentPage > 2 && state.currentPage < state.pageCount - 2 ? <StyledLink>...</StyledLink> : ''
                 }
                 {
-                    currentPage < pageCount ?
+                    state.currentPage < state.pageCount ?
                     <li>
-                        <StyledLink disabled={currentPage >= pageCount} onClick={() => changePageNumber(currentPage + 1)}>›</StyledLink>
+                        <StyledLink disabled={state.currentPage >= state.pageCount} onClick={() => changePageNumber(state.currentPage + 1)}>›</StyledLink>
                     </li> : ''
                 }
 
                 <li>
-                    <StyledLink onClick={() => changePageNumber(pageCount)}>»</StyledLink>
+                    <StyledLink onClick={() => changePageNumber(state.pageCount)}>»</StyledLink>
                 </li>
             </StyledUl>
         </StyledPagination>

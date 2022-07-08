@@ -1,9 +1,6 @@
 import PokemonTableHead from "./PokemonTableHead";
 import PokemonTableBody from "./PokemonTableBody";
-import { StaticTextsContext } from "../../context/TitleProvider";
-
 import styled from 'styled-components';
-import {useContext} from "react";
 
 const StyledTable = styled.div`
     width: 100%;
@@ -12,14 +9,12 @@ const StyledTable = styled.div`
     border: 1px solid #E7E7E7;
 `;
 
-const PokemonTable = ({ pokemons }) => {
-    const { staticTexts } = useContext(StaticTextsContext);
-    const columns = staticTexts.columnsHeader;
+const PokemonTable = () => {
 
     return <>
         <StyledTable>
-            <PokemonTableHead columns={ columns } />
-            <PokemonTableBody pokemons={ pokemons } />
+            <PokemonTableHead />
+            <PokemonTableBody />
         </StyledTable>
     </>;
 }

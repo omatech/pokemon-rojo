@@ -1,14 +1,17 @@
+import { useContext } from "react";
 import PokemonTableRow from "./PokemonTableRow";
-
+import { StateContext } from "../../context/StateProvider";
 import styled from 'styled-components';
 
 const TableBody = styled.div`
     display: table-row-group;
 `;
 
-const PokemonTableBody = ({ pokemons }) => {
+const PokemonTableBody = () => {
+    const { state, dispatch  } = useContext(StateContext);
+
     return <TableBody>
-        {pokemons.map(filteredPokemon =>
+        {state.pokemons.map(filteredPokemon =>
             <PokemonTableRow key= {filteredPokemon.id} row={ filteredPokemon }/>
         )}
     </TableBody>;

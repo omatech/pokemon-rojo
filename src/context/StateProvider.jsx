@@ -1,7 +1,5 @@
 import { createContext, useReducer } from 'react';
 import { stateReducer } from '../reducers/StateReducer';
-import usePokemonTypes from "../hooks/UsePokemonTypes";
-import usePokemons from "../hooks/UsePokemons";
 
 export const StateContext = createContext();
 
@@ -13,8 +11,10 @@ const StateProvider = ({ children }) => {
         searchValue: "",
         pageNumber: 0,
         pageSize: 10,
+        pokemons: [],
+        pokemonCount: 0,
+        pageCount: 0,
     });
-
 
     return <StateContext.Provider value={{ state, dispatch }}>
         { children }
