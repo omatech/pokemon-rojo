@@ -3,7 +3,7 @@ import { StateContext } from "../context/StateProvider";
 
 const usePokemons = ({selectedTypes }) => {
     const { state, dispatch  } = useContext(StateContext);
-    const url = `https://pokeapi.co/api/v2/pokemon?offset=${state.currentPage * state.pageSize}&limit=${state.pageSize}`;
+    const url = `https://pokeapi.co/api/v2/pokemon?offset=${state.pageNumber * state.pageSize}&limit=${state.pageSize}`;
     const [isLoading, setIsLoading] = useState(true);
 
 

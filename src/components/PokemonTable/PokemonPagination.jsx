@@ -49,29 +49,29 @@ const PokemonPagination = () => {
                     <StyledLink onClick={() => changePageNumber(0)}>«</StyledLink>
                 </li>
                 {
-                    state.currentPage > 0 ? 
+                    state.pageNumber > 0 ? 
                     <li>
-                        <StyledLink disabled={state.currentPage === 0} onClick={() => changePageNumber(state.currentPage - 1)}>‹</StyledLink>
+                        <StyledLink disabled={state.pageNumber === 0} onClick={() => changePageNumber(state.pageNumber - 1)}>‹</StyledLink>
                     </li> : ''
                 }
 
                 {
-                    state.currentPage > 2 ? <StyledLink>...</StyledLink> : ''
+                    state.pageNumber > 2 ? <StyledLink>...</StyledLink> : ''
                 }
                 {[...Array(state.pageCount + 1).keys()].map((i) =>
-                    i > state.currentPage + 2 ? '' :
-                    i < state.currentPage - 2 ? '' :
+                    i > state.pageNumber + 2 ? '' :
+                    i < state.pageNumber - 2 ? '' :
                     <li key={i}>
-                        <StyledLink className={`${i === state.currentPage ? "active" : ""}`} onClick={() => changePageNumber(i)} disabled={i === state.currentPage}>{i + 1}</StyledLink>
+                        <StyledLink className={`${i === state.pageNumber ? "active" : ""}`} onClick={() => changePageNumber(i)} disabled={i === state.pageNumber}>{i + 1}</StyledLink>
                     </li>
                 )}
                 {
-                    state.currentPage > 2 && state.currentPage < state.pageCount - 2 ? <StyledLink>...</StyledLink> : ''
+                    state.pageNumber > 2 && state.pageNumber < state.pageCount - 2 ? <StyledLink>...</StyledLink> : ''
                 }
                 {
-                    state.currentPage < state.pageCount ?
+                    state.pageNumber < state.pageCount ?
                     <li>
-                        <StyledLink disabled={state.currentPage >= state.pageCount} onClick={() => changePageNumber(state.currentPage + 1)}>›</StyledLink>
+                        <StyledLink disabled={state.pageNumber >= state.pageCount} onClick={() => changePageNumber(state.pageNumber + 1)}>›</StyledLink>
                     </li> : ''
                 }
 
