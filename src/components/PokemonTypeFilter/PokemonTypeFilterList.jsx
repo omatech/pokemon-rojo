@@ -82,7 +82,7 @@ const PokemonTypeFilterList = ({types, setTypes}) => {
             <FiltersTitle>{staticTexts.filterTitle}</FiltersTitle>
             {
                 types.map(type =>
-                    <StyledCheckboxGroup>
+                    <StyledCheckboxGroup key={type.name}>
                         <input type="checkbox" name={type.name} id={type.name} onChange={onChangeHandler} checked={type.active} />
                         <span>{type.name}</span>
                     </StyledCheckboxGroup>

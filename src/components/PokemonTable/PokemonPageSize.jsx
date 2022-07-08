@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { StaticTextsContext } from "../../context/TitleProvider";
 import { useContext } from 'react';
+import { StateContext } from  "../../context/StateProvider";
 
 const StyledSpan = styled.span`
     font-size: 13px;
@@ -40,7 +41,9 @@ const SizeSelect = styled.select`
     background-repeat: no-repeat;
 `;
 
-const PokemonPageSize = ({pageSize, dispatch}) => {
+const PokemonPageSize = () => {
+    const { state, dispatch } = useContext(StateContext);
+
     const { staticTexts } = useContext(StaticTextsContext);
     const paginationText = staticTexts.paginationConfig.text;
     const onChangeHandler = ({ target }) => {
@@ -55,7 +58,7 @@ const PokemonPageSize = ({pageSize, dispatch}) => {
     return (
         <div>
             <StyledSpan>Ver: </StyledSpan>
-            <SizeSelect onChange={onChangeHandler} value={pageSize}>
+            <SizeSelect onChange={onChangeHandler} value={state.pageSize}>
                 { staticTexts.paginationConfig.sizes.map(size => <option key={size} value={size}>{ paginationText.replace('::', size )}</option>) }
             </SizeSelect>
         </div>

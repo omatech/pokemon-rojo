@@ -15,7 +15,7 @@ const TitleProvider = ({children}) => {
         filterTitle: "Tipos pokémon",
         paginationConfig: {
             sizes : [10, 20, 50, 100],
-            text : "Mostrar :: elementos"
+            text : ":: elementos"
         }
     };
     return <StaticTextsContext.Provider value={{ staticTexts }}>

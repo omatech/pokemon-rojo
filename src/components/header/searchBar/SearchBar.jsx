@@ -1,6 +1,7 @@
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 import styled from 'styled-components';
 import { colors, heights } from '../../../utils/variables';
+import { StateContext } from  "../../../context/StateProvider";
 
 const StyledSearchBar = styled.div`
   background-color: ${ colors.bgSearchBar };
@@ -34,6 +35,9 @@ const SearchInput = styled.input`
 `;
 
 const searchPokemon = ({ target }) => {
+
+    const { dispatch } = useContext(StateContext);
+
     dispatch({
         type: 'SET_SEARCH_VALUE',
         payload: {
@@ -42,7 +46,7 @@ const searchPokemon = ({ target }) => {
     });
 }
 
-const SearchBar = ({setSearchValue}) => {
+const SearchBar = () => {
 
   const search = useRef();
 
