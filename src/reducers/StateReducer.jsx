@@ -1,13 +1,26 @@
 const sortDirection = (state, payload) =>
 {   
-    let pokemons = [];
     if (payload.direction === 'asc') {
-        pokemons = state.pokemons.sort((a, b) => a[state.orderValue] > b[state.orderValue])
+        state.pokemons.sort((a, b) => {
+            if (a[state.orderValue] > b[state.orderValue]) {
+                return 1;
+            }
+            if (a[state.orderValue] < b[state.orderValue]) {
+                return -1;
+            }
+            return 0;
+        });
     } else {
-        pokemons = state.pokemons.sort((a, b) => a[state.orderValue] < b[state.orderValue])
+        state.pokemons.sort((a, b) => {
+            if (a[state.orderValue] > b[state.orderValue]) {
+                return -1;
+            }
+            if (a[state.orderValue] < b[state.orderValue]) {
+                return 1;
+            }
+            return 0;
+        });
     }
-    console.log(pokemons);
-    return pokemons;
 }
 
 
@@ -31,7 +44,7 @@ export const stateReducer = (state, { type, payload }) => {
         case "SET_DIRECTION": {
             const newState = structuredClone(state);
             newState.direction = payload.direction;
-            newState.pokemons = sortDirection(newState, payload); 
+            sortDirection(newState, payload);
             return newState;
         }
         case "SET_PAGE_NUMBER": {
