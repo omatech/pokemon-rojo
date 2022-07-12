@@ -73,11 +73,18 @@ export const stateReducer = (state, { type, payload }) => {
             const newState = structuredClone(state);
             const type = newState.types.find(({name}) => name === payload.name);
             type.active = payload.checked;
-            newState.pokemons = state.pokemons.filter(pokemon =>
-                newState.types.some(
-                    type => pokemon.types.includes(type))
-            );
-        
+            
+            const selectedTypes = newState.types.filter(type => type.active).map(type => type.name);
+
+            if(selectedTypes.length > 0) {
+                newState.pokemons = state.backPokemons.filter(
+                    pokemon => selectedTypes.some(
+                        eachType => pokemon.types.includes(eachType))
+                );
+            } else {
+                newState.pokemons = state.backPokemons;
+            }
+            
             return newState;
         }
 
