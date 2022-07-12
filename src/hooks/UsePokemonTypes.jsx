@@ -1,29 +1,44 @@
-import { useState } from "react";
+import { useEffect, useContext } from "react";
+import { StateContext } from  "../context/StateProvider";
 
 const usePokemonTypes =  () => {
+
+    const { dispatch } = useContext(StateContext);
 
     const initialTypes = [];
     const url = "https://pokeapi.co/api/v2/type?limit=18";
     
-    (async () => {
-        const request = await fetch(url);
-        const result = await request.json();
-        const results = result.results.sort((a, b) =>
-            a.name > b.name ? 1 : -1,
-        );
-        results.map(function(type) {
-            let initialType = {
-                name: type.name,
-                active: false
-            };
-            initialTypes.push(initialType);
-        });
-    })();
+    useEffect(() => {
+        const controller = new AbortController();
+        (async () => {
+            const request = await fetch(url, { signal: controller.signal });
+            const result = await request.json();
+            const results = result.results.sort((a, b) =>
+                a.name > b.name ? 1 : -1,
+            );
+            results.map(function(type) {
+                let initialType = {
+                    name: type.name,
+                    active: false
+                };
+                initialTypes.push(initialType);
+            });
 
-    const [types, setTypes] = useState(initialTypes);
-    const selectedTypes = types.filter(type => type.active).map(type => type.name);
+            dispatch({
+                type: 'SET_TYPES',
+                payload: {
+                    types: initialTypes
+                }
+            });
 
-    return [types, setTypes, selectedTypes];
+            
+        })();
+
+        return () => controller.abort();
+
+    }, []);
+
+    return [];
 };
 
 export default usePokemonTypes;

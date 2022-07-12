@@ -15,7 +15,8 @@ import usePokemons from './hooks/UsePokemons';
 
 
 const StyledContainer = styled.main`
-    width: 1440px;
+    box-sizing: border-box;
+    width: 1280px;
     max-width: 100%;
     margin-right: auto;
     margin-left: auto;
@@ -53,15 +54,15 @@ const Contexted = Component => props =>
   </StateProvider>;
 
 const App = () => {
-    const [types, setTypes, selectedTypes] = usePokemonTypes();
     const { state  } = useContext(StateContext);
-    const [ isLoading ] = usePokemons(selectedTypes);
+    const [ isLoading ] = usePokemons();
+    usePokemonTypes();
 
     return (
         <StyledApp>
             <TitleProvider>
                 <Header/>
-                <PokemonTypeFilterList types={types} setTypes={setTypes}/>
+                <PokemonTypeFilterList />
                 <StyledContainer>
                     <StyledSection>
                     {!isLoading ? 

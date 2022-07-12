@@ -1,5 +1,6 @@
 import {Fragment} from "react";
 import { useContext } from "react";
+import { StateContext } from  "../../context/StateProvider";
 import { StaticTextsContext } from "../../context/TitleProvider";
 import {colors, text} from '../../utils/variables';
 
@@ -64,24 +65,27 @@ const StyledCheckboxGroup = styled.label`
     }
 `;
 
-const PokemonTypeFilterList = ({types, setTypes}) => {
+const PokemonTypeFilterList = () => {
 
+    const { state, dispatch } = useContext(StateContext);
     const { staticTexts } = useContext(StaticTextsContext);
 
     const onChangeHandler = ({target}) => {
-        setTypes(state => {
-            const newState = structuredClone(state);
-            const type = newState.find(({name}) => name === target.name);
-            type.active = target.checked;
-            return newState;
-        })
+
+        dispatch({
+            type: 'SET_TYPE',
+            payload: {
+                name: target.name,
+                checked: target.checked,
+            }
+        });
     };
 
     return (
         <StyledAside>
             <FiltersTitle>{staticTexts.filterTitle}</FiltersTitle>
             {
-                types.map(type =>
+                state.types.map(type =>
                     <StyledCheckboxGroup key={type.name}>
                         <input type="checkbox" name={type.name} id={type.name} onChange={onChangeHandler} checked={type.active} />
                         <span>{type.name}</span>

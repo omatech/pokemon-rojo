@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import { StateContext } from "../context/StateProvider";
 
-const usePokemons = ({selectedTypes }) => {
+const usePokemons = () => {
     const { state, dispatch  } = useContext(StateContext);
     const url = `https://pokeapi.co/api/v2/pokemon?offset=${state.pageNumber * state.pageSize}&limit=${state.pageSize}`;
     const [isLoading, setIsLoading] = useState(true);
@@ -53,17 +53,6 @@ const usePokemons = ({selectedTypes }) => {
         return () => controller.abort();
 
     }, [url]);
-
-   
-    let pokemons = state.pokemons;
-    if (selectedTypes && selectedTypes.length) {
-        pokemons = pokemons.filter(pokemon =>
-            selectedTypes.some(
-                type => pokemon.types.includes(type))
-        );
-    }
-
-    pokemons = pokemons.filter(pokemon => pokemon.name.toLowerCase().includes(state.searchValue.toLowerCase()));
 
     return [isLoading];
 }

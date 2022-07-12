@@ -34,42 +34,37 @@ const SearchInput = styled.input`
     width: 320px;
 `;
 
-const searchPokemon = ({ target }) => {
-
-    const { dispatch } = useContext(StateContext);
-
+const searchPokemon = (value, dispatch) => {
     dispatch({
         type: 'SET_SEARCH_VALUE',
         payload: {
-            searchValue: target,
+            searchValue: value,
         }
     });
 }
 
 const SearchBar = () => {
+    const { dispatch } = useContext(StateContext);
+    const search = useRef();
 
-  const search = useRef();
+    const onClickHandler = () => {
+        searchPokemon(search.current.value, dispatch);
+    }
 
-  const onClickHandler = () => {
-      searchPokemon(search.current.value);
-      //setSearchValue(search.current.value);
-  }
+    const onKeyHandler = (event) => {
+        if(event.key === 'Enter') {
+            searchPokemon(search.current.value, dispatch);
+        }
+    }
 
-  const onKeyHandler = (event) => {
-      if(event.key === 'Enter') {
-          searchPokemon(search.current.value);
-          //setSearchValue(search.current.value);
-      }
-  }
-
-  return (
-      <StyledSearchBar>
+    return (
+        <StyledSearchBar>
         <SearchContainer>
-          <SearchInput type="text" placeholder="Haz una búsqueda" ref={ search } onKeyDown={onKeyHandler} autoFocus />
-          <img src="img/search.svg" onClick={onClickHandler} />
+            <SearchInput type="text" placeholder="Haz una búsqueda" ref={ search } onKeyDown={onKeyHandler} autoFocus />
+            <img src="img/search.svg" onClick={onClickHandler} />
         </SearchContainer>
     </StyledSearchBar>
-  );
+    );
 
 }
 

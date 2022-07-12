@@ -39,6 +39,10 @@ export const stateReducer = (state, { type, payload }) => {
         case "SET_SEARCH_VALUE": {
             const newState = structuredClone(state);
             newState.searchValue = payload.searchValue;
+            newState.pokemons = state.backPokemons.filter(
+                pokemon => pokemon.name.toLowerCase().includes(newState.searchValue.toLowerCase())
+            );
+
             return newState;
         }
         case "SET_DIRECTION": {
@@ -55,12 +59,28 @@ export const stateReducer = (state, { type, payload }) => {
         case "SET_POKEMONS": {
             const newState = structuredClone(state); 
             newState.pokemons = payload.pokemons;
+            newState.backPokemons = payload.pokemons;
             newState.pokemonCount = payload.pokemonCount;
             newState.pageCount = payload.pageCount;
             return newState;
         }
-        //case "SET_TYPES":
-            //return payload.page;
+        case "SET_TYPES": {
+            const newState = structuredClone(state);
+            newState.types = payload.types;
+            return newState;
+        }
+        case "SET_TYPE": {
+            const newState = structuredClone(state);
+            const type = newState.types.find(({name}) => name === payload.name);
+            type.active = payload.checked;
+            newState.pokemons = state.pokemons.filter(pokemon =>
+                newState.types.some(
+                    type => pokemon.types.includes(type))
+            );
+        
+            return newState;
+        }
+
         default:
             return state;
     }
