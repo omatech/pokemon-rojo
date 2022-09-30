@@ -15,7 +15,8 @@ const StateProvider = ({ children }) => {
         backPokemons: [],
         pokemonCount: 0,
         pageCount: 0,
-        types: []
+        types: [],
+        pokemon: ""
     });
 
     return <StateContext.Provider value={{ state, dispatch }}>

@@ -64,6 +64,16 @@ export const stateReducer = (state, { type, payload }) => {
             newState.pageCount = payload.pageCount;
             return newState;
         }
+        case "SEE_POKEMON_DETAIL": {
+            const newState = structuredClone(state); 
+            newState.pokemon = payload.pokemon;
+            return newState;
+        }
+        case "CLOSE_POKEMON_DETAIL": {
+            const newState = structuredClone(state); 
+            newState.pokemon = "";
+            return newState;
+        }
         case "SET_TYPES": {
             const newState = structuredClone(state);
             newState.types = payload.types;

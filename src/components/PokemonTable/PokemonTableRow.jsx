@@ -1,5 +1,7 @@
+import { Fragment, useContext } from 'react';
 import PokemonAttack from "./PokemonAttack";
 import PokemonType from "./PokemonType";
+import { StateContext } from "../../context/StateProvider";
 
 import styled from 'styled-components';
 
@@ -40,27 +42,42 @@ const capitalizeFirst = str => {
     return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
-const PokemonTableRow = ({row}) =>
-    <TableRow>
-        <TableCell>
-            <PokemonSprite src={row.image} alt={row.name} width="45" height="45" />
-        </TableCell>
-        <TableCell>N. {String(row.number).padStart(3, '0')}</TableCell>
-        <TableCell>
-            <strong>{capitalizeFirst(row.name)}</strong>
-        </TableCell>
-        <TableCell>
-            { row.types.map(type =>
-                <PokemonType key={type} name={type} />
-            ) }
-        </TableCell>
+const PokemonTableRow = ({row}) => {
 
-        {/* <td>{row.moves.slice(0, 3).map(m => <PokemonAttack key={m} attack={m}/>)}</td> */}
+    const { state, dispatch } = useContext(StateContext);
 
-        <TableCell>
-            <DetailButton href="/">Ver detalle</DetailButton>
-        </TableCell>
-    </TableRow>;
+    const viewDetail = ( pokemon ) => {
+        dispatch({
+            type: "SEE_POKEMON_DETAIL",
+            payload: { pokemon : pokemon }
+        });
+    }
+    
+    const handleClick = (pokemon) => {
+        viewDetail(pokemon);
+    }
+
+    return <TableRow>
+            <TableCell>
+                <PokemonSprite src={row.image} alt={row.name} width="45" height="45" />
+            </TableCell>
+            <TableCell>N. {String(row.number).padStart(3, '0')}</TableCell>
+            <TableCell>
+                <strong>{capitalizeFirst(row.name)}</strong>
+            </TableCell>
+            <TableCell>
+                { row.types.map(type =>
+                    <PokemonType key={type} name={type} />
+                ) }
+            </TableCell>
+
+            {/* <td>{row.moves.slice(0, 3).map(m => <PokemonAttack key={m} attack={m}/>)}</td> */}
+
+            <TableCell>
+                <DetailButton href="/" onClick={() => handleClick(row)}>Ver detalle</DetailButton>
+            </TableCell>
+        </TableRow>;
+}
 
 
 export default PokemonTableRow;

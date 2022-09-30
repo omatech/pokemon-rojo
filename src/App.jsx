@@ -4,6 +4,7 @@ import StyledGlobal from './utils/StyledGlobal';
 import PokemonTable from "./components/PokemonTable/PokemonTable";
 import styled from 'styled-components';
 import PokemonTypeFilterList from "./components/PokemonTypeFilter/PokemonTypeFilterList";
+import PokemonDetail from "./components/PokemonDetail";
 import PokemonPagination from "./components/PokemonTable/PokemonPagination";
 import PokemonPageSize from "./components/PokemonTable/PokemonPageSize";
 import TitleProvider from "./context/TitleProvider";
@@ -67,12 +68,20 @@ const App = () => {
                     <StyledSection>
                     {!isLoading ? 
                         <section>
-                            <TwoCols>
-                                <TotalPkmn>{state.pokemonCount} <strong>Pokémons</strong></TotalPkmn>
-                                <PokemonPageSize/>
-                            </TwoCols>
-                            <PokemonTable/>
-                            <PokemonPagination />
+                            {
+                                state.pokemon 
+                                ? 
+                                    <PokemonDetail/> 
+                                : 
+                                    <>
+                                        <TwoCols>
+                                            <TotalPkmn>{state.pokemonCount} <strong>Pokémons</strong></TotalPkmn>
+                                            <PokemonPageSize/>
+                                        </TwoCols>
+                                        <PokemonTable/>
+                                        <PokemonPagination />
+                                    </>
+                            }
                         </section>
                         : <div>Loading...</div> }
                     </StyledSection>
