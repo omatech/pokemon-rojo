@@ -1,6 +1,32 @@
 import { useContext } from 'react';
 import { StateContext } from "../context/StateProvider";
 
+import styled from 'styled-components';
+
+const StyledDetail = styled.div `
+    width: 500px;
+    margin: 40px auto;
+    background-color: var(--bg-detail);
+    color: var(--txt-inverse);
+    display: flex:
+    flex-direction: column;
+
+`;
+const StyledFigure = styled.figure `
+    width: 100%;
+    background-color: var(--bg-basic);
+    display: flex:
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+`;
+const StyledContentDetail = styled.figure `
+    width: 100%;
+    padding: 20px;
+`;
+
+
 const PokemonDetail = () => {
 
     const { state, dispatch } = useContext(StateContext);
@@ -20,11 +46,15 @@ const PokemonDetail = () => {
     };
 
     return ( 
-        <div>
-            <h1>N. {String(state.pokemon.number).padStart(3, '0')} - {capitalizeFirst(state.pokemon.name)}</h1>
-            <img src={state.pokemon.image} alt={state.pokemon.name} width="45" height="45" />
+        <StyledDetail>
             <a href="#" onClick={() => handleClick()} >Cerrar</a>
-        </div>
+            <StyledFigure>
+                <img src={state.pokemon.image} alt={state.pokemon.name} width="45" height="45" />
+            </StyledFigure>
+            <StyledContentDetail>
+                <h1>N. {String(state.pokemon.number).padStart(3, '0')} - {capitalizeFirst(state.pokemon.name)}</h1>
+            </StyledContentDetail>
+        </StyledDetail>
     );
 }
  
