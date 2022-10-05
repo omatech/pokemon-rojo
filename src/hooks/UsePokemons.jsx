@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import {useEffect, useState, useContext} from "react";
 import { StateContext } from "../context/StateProvider";
 
 const usePokemons = () => {
@@ -12,7 +12,7 @@ const usePokemons = () => {
             return pokemonDetail(p, controller);
         });
         return Promise.all(pokemonPromises);
-    }
+    };
 
     const pokemonDetail = async(pokemon, controller) => {
         const request = await fetch(pokemon.url, {signal: controller.signal });

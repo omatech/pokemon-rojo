@@ -1,8 +1,8 @@
-import {Fragment} from "react";
+import {useEffect} from "react";
 import { useContext } from "react";
 import { StateContext } from  "../../context/StateProvider";
 import { StaticTextsContext } from "../../context/TitleProvider";
-import {colors, text} from '../../utils/variables';
+import {colors} from '../../utils/variables';
 
 import styled from 'styled-components';
 
@@ -66,7 +66,7 @@ const StyledCheckboxGroup = styled.label`
 `;
 
 const PokemonTypeFilterList = () => {
-
+    useEffect(() => console.log('<PokemonTypeFilterList/>'));
     const { state, dispatch } = useContext(StateContext);
     const { staticTexts } = useContext(StaticTextsContext);
 

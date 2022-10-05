@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useContext } from "react";
+import {useContext, useEffect} from "react";
 import { StateContext } from "../../context/StateProvider";
 
 const StyledLink = styled.a`
@@ -33,7 +33,7 @@ const StyledPagination = styled.div`
 `;
 
 const PokemonPagination = () => {
-
+    useEffect(() => console.log('<PokemonPagination />'));
     const { state, dispatch } = useContext(StateContext);
     const changePageNumber = ( pageNumber ) => {
         dispatch({

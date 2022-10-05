@@ -1,10 +1,9 @@
-import { useContext } from 'react';
+import { useContext, lazy, Suspense } from 'react';
 import Header from './components/header/Header';
 import StyledGlobal from './utils/StyledGlobal';
 import PokemonTable from "./components/PokemonTable/PokemonTable";
 import styled from 'styled-components';
 import PokemonTypeFilterList from "./components/PokemonTypeFilter/PokemonTypeFilterList";
-import PokemonDetail from "./components/PokemonDetail";
 import PokemonPagination from "./components/PokemonTable/PokemonPagination";
 import PokemonPageSize from "./components/PokemonTable/PokemonPageSize";
 import TitleProvider from "./context/TitleProvider";
@@ -13,6 +12,8 @@ import {colors, heights, widths} from './utils/variables';
 import usePokemonTypes from "./hooks/UsePokemonTypes";
 import StateProvider, { StateContext } from  "./context/StateProvider";
 import usePokemons from './hooks/UsePokemons';
+
+const PokemonDetail = lazy(() => import("./components/PokemonDetail"))
 
 
 const StyledContainer = styled.main`
@@ -49,7 +50,7 @@ const StyledApp = styled.div`
   height: 100vh;
 `;
 
-const Contexted = Component => props => 
+const Contexted = Component => props =>
   <StateProvider>
     <Component {...props} />
   </StateProvider>;
@@ -66,13 +67,15 @@ const App = () => {
                 <PokemonTypeFilterList />
                 <StyledContainer>
                     <StyledSection>
-                    {!isLoading ? 
+                    {!isLoading ?
                         <section>
                             {
-                                state.pokemon 
-                                ? 
-                                    <PokemonDetail/> 
-                                : 
+                                state.pokemon
+                                ?
+                                    <Suspense fallback={<div> El componente Table está cargando... </div>}>
+                                        <PokemonDetail/>
+                                    </Suspense>
+                                :
                                     <>
                                         <TwoCols>
                                             <TotalPkmn>{state.pokemonCount} <strong>Pokémons</strong></TotalPkmn>

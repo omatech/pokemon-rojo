@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import {useContext, useEffect } from 'react';
 import { StateContext } from "../context/StateProvider";
 
 import styled from 'styled-components';
@@ -28,7 +28,7 @@ const StyledContentDetail = styled.figure `
 
 
 const PokemonDetail = () => {
-
+    useEffect(() => console.log('<PokemonDetail />'));
     const { state, dispatch } = useContext(StateContext);
 
     const viewTable = () => {

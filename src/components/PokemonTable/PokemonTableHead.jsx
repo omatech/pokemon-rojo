@@ -1,4 +1,4 @@
-import { Fragment, useContext } from 'react';
+import { Fragment, useContext, useEffect } from 'react';
 import { StateContext } from "../../context/StateProvider";
 import { StaticTextsContext } from "../../context/TitleProvider";
 import styled from 'styled-components';
@@ -20,6 +20,7 @@ const StyledHeaderCell = styled.div`
 
 const PokemonTableHead = () => {
 
+    useEffect(() => console.log('<PokemonTableHead />'));
     const { staticTexts } = useContext(StaticTextsContext);
     const columns = staticTexts.columnsHeader;
     const { state, dispatch } = useContext(StateContext);

@@ -1,5 +1,4 @@
-import { Fragment, useContext } from 'react';
-import PokemonAttack from "./PokemonAttack";
+import { useContext, useEffect } from 'react';
 import PokemonType from "./PokemonType";
 import { StateContext } from "../../context/StateProvider";
 
@@ -44,7 +43,8 @@ const capitalizeFirst = str => {
 
 const PokemonTableRow = ({row}) => {
 
-    const { state, dispatch } = useContext(StateContext);
+    useEffect(() => console.log('<PokemonTableRow />'));
+    const {dispatch } = useContext(StateContext);
 
     const viewDetail = ( pokemon ) => {
         dispatch({
@@ -52,7 +52,7 @@ const PokemonTableRow = ({row}) => {
             payload: { pokemon : pokemon }
         });
     }
-    
+
     const handleClick = (pokemon) => {
         viewDetail(pokemon);
     }

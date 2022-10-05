@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import {useContext, useEffect} from "react";
 import PokemonTableRow from "./PokemonTableRow";
 import { StateContext } from "../../context/StateProvider";
 import styled from 'styled-components';
@@ -8,7 +8,8 @@ const TableBody = styled.div`
 `;
 
 const PokemonTableBody = () => {
-    const { state, dispatch  } = useContext(StateContext);
+    useEffect(() => console.log('<PokemonTableBody />'));
+    const { state} = useContext(StateContext);
 
     return <TableBody>
         {state.pokemons.map(filteredPokemon =>
