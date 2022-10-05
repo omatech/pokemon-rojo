@@ -8,20 +8,22 @@ const StyledDetail = styled.div `
     margin: 40px auto;
     background-color: var(--bg-detail);
     color: var(--txt-inverse);
-    display: flex:
+    display: flex;
     flex-direction: column;
 
 `;
 const StyledFigure = styled.figure `
-    width: 100%;
     background-color: var(--bg-basic);
-    display: flex:
-    flex-flow: row nowrap;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
     justify-content: center;
     align-items: center;
+    width: 100%;
     padding: 20px;
+    margin: 0;
 `;
-const StyledContentDetail = styled.figure `
+const StyledContentDetail = styled.div `
     width: 100%;
     padding: 20px;
 `;
