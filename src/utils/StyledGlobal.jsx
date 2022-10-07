@@ -1,7 +1,7 @@
-import {createGlobalStyle} from 'styled-components';
-import {colors, widths, text} from './variables';
+import { createGlobalStyle } from 'styled-components'
+import { colors, widths, text } from './variables'
 
-const StyledGlobal = () => <GlobalStyle />;
+const StyledGlobal = () => <GlobalStyle />
 
 const GlobalStyle = createGlobalStyle`  
   * { box-sizing: border-box; }
@@ -18,10 +18,10 @@ const GlobalStyle = createGlobalStyle`
   }
   .container {
     width: 100%;
-    max-width: ${ widths.wContainer };
+    max-width: ${widths.wContainer};
     margin: 0 auto;
     padding: 0 20px;
   }
-`;
+`
 
-export default StyledGlobal;
+export default StyledGlobal

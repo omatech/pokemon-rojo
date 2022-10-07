@@ -1,12 +1,12 @@
-import styled from 'styled-components';
-import { StaticTextsContext } from "../../context/TitleProvider";
-import { useContext } from 'react';
-import { StateContext } from  "../../context/StateProvider";
+import styled from 'styled-components'
+import { StaticTextsContext } from '../../context/TitleProvider'
+import { useContext } from 'react'
+import { StateContext } from '../../context/StateProvider'
 
 const StyledSpan = styled.span`
     font-size: 13px;
     text-transform: uppercase;
-`;
+`
 
 const SizeSelect = styled.select`
     border: none;
@@ -39,30 +39,30 @@ const SizeSelect = styled.select`
         5px 5px,
         1px 1.5em;
     background-repeat: no-repeat;
-`;
+`
 
 const PokemonPageSize = () => {
-    const { state, dispatch } = useContext(StateContext);
+  const { state, dispatch } = useContext(StateContext)
 
-    const { staticTexts } = useContext(StaticTextsContext);
-    const paginationText = staticTexts.paginationConfig.text;
-    const onChangeHandler = ({ target }) => {
-        dispatch({
-            type: "SET_PAGE_SIZE",
-            payload: {
-                pageSize : target.value
-            }
-        });
-    }
+  const { staticTexts } = useContext(StaticTextsContext)
+  const paginationText = staticTexts.paginationConfig.text
+  const onChangeHandler = ({ target }) => {
+    dispatch({
+      type: 'SET_PAGE_SIZE',
+      payload: {
+        pageSize: target.value
+      }
+    })
+  }
 
-    return (
+  return (
         <div>
             <StyledSpan>Ver: </StyledSpan>
             <SizeSelect onChange={onChangeHandler} value={state.pageSize}>
-                { staticTexts.paginationConfig.sizes.map(size => <option key={size} value={size}>{ paginationText.replace('::', size )}</option>) }
+                { staticTexts.paginationConfig.sizes.map(size => <option key={size} value={size}>{ paginationText.replace('::', size)}</option>) }
             </SizeSelect>
         </div>
-    );
+  )
 }
 
-export default PokemonPageSize;
+export default PokemonPageSize

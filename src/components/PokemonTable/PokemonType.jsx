@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 const StyledDiv = styled.div`
     display: inline;
@@ -19,13 +19,12 @@ const StyledDiv = styled.div`
         border-width: 6px;
         border-radius: 50px;
     }
-`;
+`
 
 const PokemonType = (props) => {
-    
-    return ( 
+  return (
         <StyledDiv name={props.name}>{props.name}</StyledDiv>
-    );
+  )
 }
- 
-export default PokemonType;
+
+export default PokemonType

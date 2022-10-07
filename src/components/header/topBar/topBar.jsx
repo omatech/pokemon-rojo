@@ -1,12 +1,12 @@
-import styled from 'styled-components';
-import {colors, heights, widths} from '../../../utils/variables';
-const IconImg = "/img/pokemon-icon.png";
+import styled from 'styled-components'
+import { colors, heights, widths } from '../../../utils/variables'
+const IconImg = '/img/pokemon-icon.png'
 
 const StyledTopBar = styled.div`
-  background-color: ${ colors.bgTopbar };
-  height: ${ heights.hTopBar };
+  background-color: ${colors.bgTopbar};
+  height: ${heights.hTopBar};
   grid-column-end: span 2;
-  padding-left: ${ widths.wSidebar };
+  padding-left: ${widths.wSidebar};
   .container {
     display: flex;
     flex-direction: row-reverse;
@@ -15,13 +15,13 @@ const StyledTopBar = styled.div`
     position: relative;
     z-index: 100;
   }
-`;
+`
 
-const TopBar = () => 
+const TopBar = () =>
   <StyledTopBar>
       <div className='container'>
         <img src={IconImg} alt="Pokémon" />
       </div>
-  </StyledTopBar>;
+  </StyledTopBar>
 
-export default TopBar;
+export default TopBar

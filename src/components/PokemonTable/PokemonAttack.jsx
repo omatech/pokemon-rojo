@@ -1,7 +1,7 @@
-import styles from "./PokemonAttack.module.scss"
+import styles from './PokemonAttack.module.scss'
 
-const PokemonAttack = ({attack}) => (
+const PokemonAttack = ({ attack }) => (
     <span className={styles.attackStyle}>{attack}</span>
-);
+)
 
-export default PokemonAttack;
+export default PokemonAttack

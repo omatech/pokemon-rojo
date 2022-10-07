@@ -1,8 +1,8 @@
-import { createPortal } from 'react-dom';
+import { createPortal } from 'react-dom'
 
-import styled from 'styled-components';
+import styled from 'styled-components'
 
-const StyledDetail = styled.div `
+const StyledDetail = styled.div`
     width: 500px;
     margin: 40px auto;
     background-color: var(--bg-detail);
@@ -14,8 +14,8 @@ const StyledDetail = styled.div `
     left: 50%;
     transform: translate(-50%, 50%);
     z-index: 1000;
-`;
-const StyledFigure = styled.figure `
+`
+const StyledFigure = styled.figure`
     background-color: var(--bg-basic);
     display: flex;
     flex-direction: row;
@@ -25,12 +25,12 @@ const StyledFigure = styled.figure `
     width: 100%;
     padding: 20px;
     margin: 0;
-`;
-const StyledContentDetail = styled.div `
+`
+const StyledContentDetail = styled.div`
     width: 100%;
     padding: 20px;
-`;
-const StyledBackdrop = styled.div `
+`
+const StyledBackdrop = styled.div`
     background: rgba(0,0,0, 0.25);
     position: absolute;
     top: 0;
@@ -38,19 +38,18 @@ const StyledBackdrop = styled.div `
     width: 100%;
     height: 100%;
     z-index: 999;
-`;
+`
 
 const PokemonModal = ({ modalState, setModalState }) => {
+  const onCloseHandler = () => {
+    setModalState({ isOpen: false, pokemon: {} })
+  }
 
-    const onCloseHandler = () => {
-        setModalState({ isOpen: false, pokemon: {} });
-    }
+  const capitalizeFirst = str => {
+    return str.charAt(0).toUpperCase() + str.slice(1)
+  }
 
-    const capitalizeFirst = str => {
-        return str.charAt(0).toUpperCase() + str.slice(1);
-    };
-
-    const Modal = () => createPortal(
+  const Modal = () => createPortal(
         <>
             <StyledDetail>
                 <a href="#" onClick={() => onCloseHandler()} >Cerrar</a>
@@ -64,9 +63,9 @@ const PokemonModal = ({ modalState, setModalState }) => {
             <StyledBackdrop onClick={() => onCloseHandler()} />
         </>,
         document.getElementById('modal-root')
-    );
+  )
 
-    return modalState.isOpen && <Modal modalState={ modalState } setModalState={ setModalState } />
+  return modalState.isOpen && <Modal modalState={ modalState } setModalState={ setModalState } />
 }
 
-export default PokemonModal;
+export default PokemonModal

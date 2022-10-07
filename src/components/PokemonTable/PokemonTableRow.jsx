@@ -1,8 +1,8 @@
-import { useContext, useEffect } from 'react';
-import PokemonType from "./PokemonType";
-import { StateContext } from "../../context/StateProvider";
+import { useContext, useEffect } from 'react'
+import PokemonType from './PokemonType'
+import { StateContext } from '../../context/StateProvider'
 
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 const TableRow = styled.div`
     outline: 1px solid #E7E7E7;
@@ -11,18 +11,18 @@ const TableRow = styled.div`
         outline: 1px solid #FFE056;
         box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
     }
-`;
+`
 
 const PokemonSprite = styled.img`
     padding: 5px;
-`;
+`
 
 const TableCell = styled.div`
     display: table-cell;
     font-size: 15px;
     padding-left: 20px;
     vertical-align: middle;
-`;
+`
 
 const DetailButton = styled.div`
     background-color: #195AAB;
@@ -35,23 +35,22 @@ const DetailButton = styled.div`
     text-align: center;
     text-transform: uppercase;
     width: 100px;
-`;
+`
 
 const capitalizeFirst = str => {
-    return str.charAt(0).toUpperCase() + str.slice(1);
-};
+  return str.charAt(0).toUpperCase() + str.slice(1)
+}
 
-const PokemonTableRow = ({row, setModalState}) => {
+const PokemonTableRow = ({ row, setModalState }) => {
+  useEffect(() => console.log('<PokemonTableRow />'))
+  const { dispatch } = useContext(StateContext)
 
-    useEffect(() => console.log('<PokemonTableRow />'));
-    const {dispatch } = useContext(StateContext);
+  const handleClick = (pokemon) => {
+    setModalState({ isOpen: true, pokemon })
+    console.log(pokemon)
+  }
 
-    const handleClick = (pokemon) => {
-        setModalState({ isOpen: true, pokemon: pokemon });
-        console.log(pokemon);
-    }
-
-    return <TableRow>
+  return <TableRow>
             <TableCell>
                 <PokemonSprite src={row.image} alt={row.name} width="45" height="45" />
             </TableCell>
@@ -68,10 +67,9 @@ const PokemonTableRow = ({row, setModalState}) => {
             {/* <td>{row.moves.slice(0, 3).map(m => <PokemonAttack key={m} attack={m}/>)}</td> */}
 
             <TableCell>
-                <DetailButton href="/"  onClick={() => handleClick(row)} >Ver detalle</DetailButton>
+                <DetailButton href="/" onClick={() => handleClick(row)} >Ver detalle</DetailButton>
             </TableCell>
-        </TableRow>;
+        </TableRow>
 }
 
-
-export default PokemonTableRow;
+export default PokemonTableRow

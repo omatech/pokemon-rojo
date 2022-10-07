@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import {useContext, useEffect} from "react";
-import { StateContext } from "../../context/StateProvider";
+import styled from 'styled-components'
+import { useContext, useEffect } from 'react'
+import { StateContext } from '../../context/StateProvider'
 
 const StyledLink = styled.a`
     color: #6F6F6F;
@@ -22,57 +22,61 @@ const StyledLink = styled.a`
             border-style: solid;
         }
     }
-`;
+`
 
 const StyledUl = styled.ul`
     text-align: right;
-`;
+`
 
 const StyledPagination = styled.div`
     li { display: inline; }
-`;
+`
 
 const PokemonPagination = () => {
-    useEffect(() => console.log('<PokemonPagination />'));
-    const { state, dispatch } = useContext(StateContext);
-    const changePageNumber = ( pageNumber ) => {
-        dispatch({
-            type: "SET_PAGE_NUMBER",
-            payload: { pageNumber : pageNumber }
-        });
-    }
+  useEffect(() => console.log('<PokemonPagination />'))
+  const { state, dispatch } = useContext(StateContext)
+  const changePageNumber = (pageNumber) => {
+    dispatch({
+      type: 'SET_PAGE_NUMBER',
+      payload: { pageNumber }
+    })
+  }
 
-    return (
+  return (
         <StyledPagination>
             <StyledUl>
                 <li>
                     <StyledLink onClick={() => changePageNumber(0)}>«</StyledLink>
                 </li>
                 {
-                    state.pageNumber > 0 ? 
-                    <li>
+                    state.pageNumber > 0
+                      ? <li>
                         <StyledLink disabled={state.pageNumber === 0} onClick={() => changePageNumber(state.pageNumber - 1)}>‹</StyledLink>
-                    </li> : ''
+                    </li>
+                      : ''
                 }
 
                 {
                     state.pageNumber > 2 ? <StyledLink>...</StyledLink> : ''
                 }
                 {[...Array(state.pageCount + 1).keys()].map((i) =>
-                    i > state.pageNumber + 2 ? '' :
-                    i < state.pageNumber - 2 ? '' :
-                    <li key={i}>
-                        <StyledLink className={`${i === state.pageNumber ? "active" : ""}`} onClick={() => changePageNumber(i)} disabled={i === state.pageNumber}>{i + 1}</StyledLink>
+                  i > state.pageNumber + 2
+                    ? ''
+                    : i < state.pageNumber - 2
+                      ? ''
+                      : <li key={i}>
+                        <StyledLink className={`${i === state.pageNumber ? 'active' : ''}`} onClick={() => changePageNumber(i)} disabled={i === state.pageNumber}>{i + 1}</StyledLink>
                     </li>
                 )}
                 {
                     state.pageNumber > 2 && state.pageNumber < state.pageCount - 2 ? <StyledLink>...</StyledLink> : ''
                 }
                 {
-                    state.pageNumber < state.pageCount ?
-                    <li>
+                    state.pageNumber < state.pageCount
+                      ? <li>
                         <StyledLink disabled={state.pageNumber >= state.pageCount} onClick={() => changePageNumber(state.pageNumber + 1)}>›</StyledLink>
-                    </li> : ''
+                    </li>
+                      : ''
                 }
 
                 <li>
@@ -80,7 +84,7 @@ const PokemonPagination = () => {
                 </li>
             </StyledUl>
         </StyledPagination>
-    );
+  )
 }
 
-export default PokemonPagination;
+export default PokemonPagination

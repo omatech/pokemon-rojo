@@ -1,17 +1,17 @@
-import { useContext, useRef } from "react";
-import styled from 'styled-components';
-import { colors, heights } from '../../../utils/variables';
-import { StateContext } from  "../../../context/StateProvider";
+import { useContext, useRef } from 'react'
+import styled from 'styled-components'
+import { colors, heights } from '../../../utils/variables'
+import { StateContext } from '../../../context/StateProvider'
 
 const StyledSearchBar = styled.div`
-  background-color: ${ colors.bgSearchBar };
-  height: ${ heights.hSearchBar };
+  background-color: ${colors.bgSearchBar};
+  height: ${heights.hSearchBar};
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: flex-start;
   align-items: center;
-`;
+`
 
 const SearchContainer = styled.div`
     height: 62px;
@@ -22,7 +22,7 @@ const SearchContainer = styled.div`
     max-width: 1360px;
     margin: 0 auto;
     padding: 0 20px;
-`;
+`
 
 const SearchInput = styled.input`
     background-color: #FFF;
@@ -32,40 +32,39 @@ const SearchInput = styled.input`
     margin-right: 10px;
     padding: 10px 20px;
     width: 320px;
-`;
+`
 
 const searchPokemon = (value, dispatch) => {
-    dispatch({
-        type: 'SET_SEARCH_VALUE',
-        payload: {
-            searchValue: value,
-        }
-    });
+  dispatch({
+    type: 'SET_SEARCH_VALUE',
+    payload: {
+      searchValue: value
+    }
+  })
 }
 
 const SearchBar = () => {
-    const { dispatch } = useContext(StateContext);
-    const search = useRef();
+  const { dispatch } = useContext(StateContext)
+  const search = useRef()
 
-    const onClickHandler = () => {
-        searchPokemon(search.current.value, dispatch);
+  const onClickHandler = () => {
+    searchPokemon(search.current.value, dispatch)
+  }
+
+  const onKeyHandler = (event) => {
+    if (event.key === 'Enter') {
+      searchPokemon(search.current.value, dispatch)
     }
+  }
 
-    const onKeyHandler = (event) => {
-        if(event.key === 'Enter') {
-            searchPokemon(search.current.value, dispatch);
-        }
-    }
-
-    return (
+  return (
         <StyledSearchBar>
         <SearchContainer>
             <SearchInput type="text" placeholder="Haz una búsqueda" ref={ search } onKeyDown={onKeyHandler} autoFocus />
             <img src="img/search.svg" onClick={onClickHandler} />
         </SearchContainer>
     </StyledSearchBar>
-    );
-
+  )
 }
 
-export default SearchBar;
+export default SearchBar
