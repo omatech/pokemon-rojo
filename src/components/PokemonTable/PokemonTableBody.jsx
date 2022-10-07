@@ -7,13 +7,13 @@ const TableBody = styled.div`
     display: table-row-group;
 `;
 
-const PokemonTableBody = () => {
+const PokemonTableBody = ({ setModalState }) => {
     useEffect(() => console.log('<PokemonTableBody />'));
     const { state} = useContext(StateContext);
 
     return <TableBody>
         {state.pokemons.map(filteredPokemon =>
-            <PokemonTableRow key= {filteredPokemon.id} row={ filteredPokemon }/>
+            <PokemonTableRow key= {filteredPokemon.id} row={ filteredPokemon } setModalState={ setModalState }/>
         )}
     </TableBody>;
 }

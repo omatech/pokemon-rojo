@@ -1,8 +1,9 @@
-import { useContext, lazy, Suspense } from 'react';
+import { useContext, lazy, Suspense, useState } from 'react';
 import Header from './components/header/Header';
 import StyledGlobal from './utils/StyledGlobal';
 import PokemonTable from "./components/PokemonTable/PokemonTable";
 import styled from 'styled-components';
+import PokemonModal from './components/PokemonModal';
 import PokemonTypeFilterList from "./components/PokemonTypeFilter/PokemonTypeFilterList";
 import PokemonPagination from "./components/PokemonTable/PokemonPagination";
 import PokemonPageSize from "./components/PokemonTable/PokemonPageSize";
@@ -58,6 +59,7 @@ const Contexted = Component => props =>
 const App = () => {
     const { state  } = useContext(StateContext);
     const [ isLoading ] = usePokemons();
+    const [modalState, setModalState] = useState({isOpen: false, pokemon: {}});
     usePokemonTypes();
 
     return (
@@ -81,7 +83,8 @@ const App = () => {
                                             <TotalPkmn>{state.pokemonCount} <strong>Pokémons</strong></TotalPkmn>
                                             <PokemonPageSize/>
                                         </TwoCols>
-                                        <PokemonTable/>
+                                        <PokemonTable setModalState={ setModalState } />
+                                        <PokemonModal modalState={ modalState } setModalState={ setModalState } />
                                         <PokemonPagination />
                                     </>
                             }

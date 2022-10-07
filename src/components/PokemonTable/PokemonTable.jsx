@@ -10,12 +10,12 @@ const StyledTable = styled.div`
     border: 1px solid #E7E7E7;
 `;
 
-const PokemonTable = () => {
+const PokemonTable = ({setModalState}) => {
     useEffect(() => console.log('<PokemonTable />'));
     return <>
         <StyledTable>
             <PokemonTableHead />
-            <PokemonTableBody />
+            <PokemonTableBody setModalState={ setModalState } />
         </StyledTable>
     </>;
 }

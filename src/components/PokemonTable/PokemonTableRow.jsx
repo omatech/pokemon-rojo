@@ -41,20 +41,14 @@ const capitalizeFirst = str => {
     return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
-const PokemonTableRow = ({row}) => {
+const PokemonTableRow = ({row, setModalState}) => {
 
     useEffect(() => console.log('<PokemonTableRow />'));
     const {dispatch } = useContext(StateContext);
 
-    const viewDetail = ( pokemon ) => {
-        dispatch({
-            type: "SEE_POKEMON_DETAIL",
-            payload: { pokemon : pokemon }
-        });
-    }
-
     const handleClick = (pokemon) => {
-        viewDetail(pokemon);
+        setModalState({ isOpen: true, pokemon: pokemon });
+        console.log(pokemon);
     }
 
     return <TableRow>
@@ -74,7 +68,7 @@ const PokemonTableRow = ({row}) => {
             {/* <td>{row.moves.slice(0, 3).map(m => <PokemonAttack key={m} attack={m}/>)}</td> */}
 
             <TableCell>
-                <DetailButton href="/" onClick={() => handleClick(row)}>Ver detalle</DetailButton>
+                <DetailButton href="/"  onClick={() => handleClick(row)} >Ver detalle</DetailButton>
             </TableCell>
         </TableRow>;
 }
